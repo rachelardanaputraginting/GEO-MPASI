@@ -4,10 +4,8 @@ import Dropdown from '@/Components/Dropdown'
 import NavLink from '@/Components/NavLink'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
 import { Link, router, usePage } from '@inertiajs/react'
-import TextInput from '@/Components/TextInput'
-import ActionButton from '@/Components/Actionbutton'
-import PrimaryButton from '@/Components/PrimaryButton'
-import SecondaryButton from '@/Components/SecondaryButton'
+import SecondaryButton from '@/Components/NavButton/SecondaryButton'
+import PrimaryButton from '@/Components/NavButton/PrimaryButton'
 
 export default function Navbar() {
     const { auth } = usePage().props
@@ -55,8 +53,12 @@ export default function Navbar() {
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
                         <div className="flex gap-x-2">
-                            <SecondaryButton>Daftar</SecondaryButton>
-                            <PrimaryButton>Masuk</PrimaryButton>
+                            <SecondaryButton href={route("register")}>
+                                Daftar
+                            </SecondaryButton>
+                            <PrimaryButton href={route("login")}>
+                                Masuk
+                            </PrimaryButton>
                         </div>
                         {/* <Dropdown>
                                 <Dropdown.Trigger>

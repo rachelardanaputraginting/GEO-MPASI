@@ -3,7 +3,7 @@ import TextInput from "../TextInput";
 
 const Hero = ({ children }) => {
     return (
-        <div className="flex flex-nowrap w-full mt-12 justify-between">
+        <div className="flex flex-wrap w-full mt-12 justify-between">
             {children}
         </div>
     );
