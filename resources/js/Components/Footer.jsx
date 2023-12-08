@@ -20,7 +20,7 @@ export default function Footer() {
                                     </h4>
                                 </NavLink>
                                 <p className="mt-5 text-dark">
-                                    Aplikasi “GEO-MPASI” adalah sebuah platform
+                                    Aplikasi GEO-MPASI adalah sebuah platform
                                     teknologi yang dirancang untuk memenuhi
                                     kebutuhan bayi untuk mencegah growth
                                     faltering di seluruh Indonesia

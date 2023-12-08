@@ -3,12 +3,12 @@ import TextInput from "../TextInput";
 
 const Hero = ({ children }) => {
     return (
-        <div className="flex flex-nowrap w-full mt-8 justify-between">
+        <div className="flex flex-nowrap w-full mt-12 justify-between">
             {children}
         </div>
     );
 };
-const HeroLeft = ({title, subtitle, location, type, placeholder}) => {
+const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
     return (
         <div className="w-full md:w-2/3 order-2 md:order-1">
             <div className="w-full md:pr-8 h-full flex justify-between flex-col">
@@ -22,7 +22,7 @@ const HeroLeft = ({title, subtitle, location, type, placeholder}) => {
                 </div>
                 <div className="md:pr-8">
                     <h6 className="text-dark mb-2">
-                        Lokasi Anda:{" "}
+                        {`${text}`}{" "}
                         <span className="font-semibold"> {location}</span>
                     </h6>
                     <TextInput

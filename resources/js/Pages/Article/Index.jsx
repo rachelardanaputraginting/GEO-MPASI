@@ -7,16 +7,15 @@ import { Head } from "@inertiajs/react";
 export default function Index() {
     return (
         <>
-            <Head title="Beranda" />
+            <Head title="Artikel" />
 
             {/* Hero Start */}
             <Container>
                 <Hero>
                     <Hero.HeroLeft
-                        title="GEO-MPASI"
+                        title="ARTIKEL"
                         subtitle="Mari bersama-sama mencegah Growth Faltering di Indonesia"
-                        text="Location:"
-                        location="Yogyakarta"
+                        text="Indonesia Sehat, Indonesia Hebat Indonesia Kuat"
                         placeholder="Masukkan Lokasi Anda"
                         type="search"
                     ></Hero.HeroLeft>

@@ -23,7 +23,6 @@ export default function Navbar() {
                                 href="/"
                                 className="text-2xl font-bold text-secondary"
                             >
-                                {/* <img src={`/app/Logo Title X.png`} alt="" width="150px" className='mx-auto' /> */}
                                 <h4>GEO-MPASI</h4>
                             </Link>
                         </div>
@@ -36,8 +35,8 @@ export default function Navbar() {
                             Beranda
                         </NavLink>
                         <NavLink
-                            href=""
-                            active=""
+                            href={route("article.index")}
+                            active={route().current("article.index")}
                         >
                             Artikel
                         </NavLink>
