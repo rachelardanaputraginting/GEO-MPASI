@@ -11,23 +11,10 @@ import SecondaryButton from '@/Components/SecondaryButton'
 
 export default function Navbar() {
     const { auth } = usePage().props
-    const { url } = usePage()
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
-    const [searchQuery, setSearchQuery] = useState('')
-
-    const handleSearch = (e) => {
-        e.preventDefault()
-        setSearchQuery(e.target.value)
-        router.get(url, {
-            search: searchQuery
-        }, {
-            preserveState: true
-        })
-    }
-
     return (
-        <nav className="bg-primary fixed z-[999] top-0 border-b border-gray-300 w-full">
+        <nav className="bg-primary fixed z-[999] top-0 shadow-xl w-full">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between h-16">
                     <div className="flex justify-between">
@@ -66,34 +53,11 @@ export default function Navbar() {
                         >
                             Tentang
                         </NavLink>
-                        {/* <NavLink href={route('admin.dashboard')} active={route().current('admin.dashboard')}>
-                                Dashboard
-                            </NavLink>
-                            {auth.user && auth.user.status == "employee" || auth.user.status == "owner"  ?
-                                <>
-                                    <NavLink href={route('admin.transaction')} active={route().current('admin.transaction')}>
-                                        Menu
-                                    </NavLink>
-                                    <NavLink href={route('admin.invoice.index')} active={route().current('admin.invoice.index')}>
-                                        History
-                                    </NavLink>
-                                </>
-                                :
-                                null}
-                            {auth.user && auth.user.status == "admin" || auth.user.status == "owner" ?
-                                <NavLink href={route('admin.activity.index')} active={route().current('admin.activity.index')}>
-                                    Log
-                                </NavLink>
-                                :
-                                null}
-                                <NavLink href={route('admin.presence.index')} active={route().current('admin.presence.index')}>
-                                    Presence
-                                </NavLink> */}
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
                         <div className="flex gap-x-2">
-                            <PrimaryButton>Masuk</PrimaryButton>
                             <SecondaryButton>Daftar</SecondaryButton>
+                            <PrimaryButton>Masuk</PrimaryButton>
                         </div>
                         {/* <Dropdown>
                                 <Dropdown.Trigger>

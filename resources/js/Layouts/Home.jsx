@@ -2,6 +2,7 @@
 
 import { Toaster } from "react-hot-toast";
 import Navbar from "./Navbar";
+import Footer from "@/Components/Footer";
 
 export default function Home({ children }) {
     return (
@@ -29,6 +30,7 @@ export default function Home({ children }) {
 
             <Navbar />
             {children}
+            <Footer />
         </div>
     );
 }

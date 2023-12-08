@@ -4,7 +4,7 @@ export default function ResponsiveNavLink({ active = false, className = '', chil
     return (
         <Link
             {...props}
-            className={`w-full flex text-lg  items-start pl-3 pr-4 py-2 ${
+            className={`w-full flex items-start pl-3 pr-4 py-2 ${
                 active
                     ? ' text-secondary bg-indigo-50 focus:text-secondary focus:bg-indigo-100'
                     : ' text-white hover:text-secondary hover:bg-gray-50 hover:-300 focus:text-secondary focus:bg-gray-50 font-medium focus:'
