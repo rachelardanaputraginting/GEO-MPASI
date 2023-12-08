@@ -20,7 +20,7 @@ const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
                         {subtitle}
                     </p>
                 </div>
-                <div className="md:pr-8">
+                <div className="md:pr-8 mt-8 md:mt-0">
                     <h6 className="text-dark mb-2">
                         {`${text}`}{" "}
                         <span className="font-semibold"> {location}</span>
