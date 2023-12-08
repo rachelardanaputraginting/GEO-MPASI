@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
+export default forwardRef(function TextInput({value, type = 'text', placeholder='', className = '', isFocused = false, ...props }, ref) {
     const input = ref ? ref : useRef();
 
     useEffect(() => {
@@ -10,14 +11,14 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
     }, []);
 
     return (
-        <input
-            {...props}
-            type={type}
-            className={
-                'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ' +
-                className
-            }
-            ref={input}
-        />
+            <input
+                {...props}
+                type={type}
+                className={clsx('border-gray-300 text-third focus:border-indigo-500 border-1 focus:ring-indigo-200 focus:bg-white rounded-md shadow-sm bg-white', className)
+                }
+                ref={input}
+                placeholder={placeholder}
+                value={value}
+            />
     );
 });
