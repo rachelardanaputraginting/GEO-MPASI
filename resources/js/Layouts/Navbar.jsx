@@ -13,7 +13,7 @@ export default function Navbar() {
 
     return (
         <nav className="bg-primary fixed z-[999] top-0 shadow-xl w-full">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-8xl mx-auto px-4 md:px-40">
                 <div className="flex justify-between h-16">
                     <div className="flex justify-between">
                         <div className="flex items-center w-full">
