@@ -13,7 +13,7 @@ const Table = ({children, className}) => {
 
 const Thead = ({ children, className }) => {
     return (
-        <thead className={clsx("text-xs text-slate-700 uppercase bg-gray-100 bg-gray-100", className)}>
+        <thead className={clsx(" text-slate-700 uppercase bg-gray-100 bg-gray-100", className)}>
             {children}
         </thead>
     )

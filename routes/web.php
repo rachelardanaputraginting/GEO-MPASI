@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home.index');
 
-        Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
+Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
+Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
 
 require __DIR__.'/auth.php';
