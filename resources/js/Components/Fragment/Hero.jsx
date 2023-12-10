@@ -13,10 +13,10 @@ const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
         <div className="w-full md:w-2/3 order-2 md:order-1">
             <div className="w-full md:pr-8 h-full flex justify-between flex-col">
                 <div className="flex flex-col mt-16">
-                    <h1 className="text-secondary font-bold text-4xl">
+                    <h1 className="text-secondary font-bold sm:text-4xl md:text-5xl">
                         {title}
                     </h1>
-                    <p className="font-medium text-dark text-xl">
+                    <p className="font-medium text-dark text-xl md:text-2xl">
                         {subtitle}
                     </p>
                 </div>

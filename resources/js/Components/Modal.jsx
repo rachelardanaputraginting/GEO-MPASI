@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { IconX } from '@tabler/icons-react'
-import { Children, Fragment, useState } from 'react'
+import { Fragment } from 'react'
 
 export default function MyModal({ isOpen, onClose, size, title, children, type }) {
     return (
