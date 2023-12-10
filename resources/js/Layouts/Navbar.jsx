@@ -39,8 +39,8 @@ export default function Navbar() {
                             Artikel
                         </NavLink>
                         <NavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
+                            href={route("doctor.index")}
+                            active={route().current("doctor.index")}
                         >
                             Dokter
                         </NavLink>

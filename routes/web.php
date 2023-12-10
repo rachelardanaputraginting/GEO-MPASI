@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home.index');
 
-Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
-Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show');
+// Article
+Route::get('/article', [ArticleController::class, 'index'])->name('article.index'); // Get Article
+Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show'); // SHow Article By Slug
+
+// Doctor
+Route::get('/doctor', [DoctorController::class, 'index'])->name('doctor.index'); // Get Doctor
+
+// About
+Route::get('/about', [AboutController::class, 'index'])->name('about.index'); // Get About
 
 require __DIR__.'/auth.php';
