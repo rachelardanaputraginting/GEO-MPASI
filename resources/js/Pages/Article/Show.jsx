@@ -4,7 +4,7 @@ import Container from "@/Components/Container";
 import Home from "@/Layouts/Home";
 import { Head } from "@inertiajs/react";
 
-export default function Index() {
+export default function Show() {
     return (
         <>
             <Head title="Rincian Artikel" />
@@ -93,4 +93,4 @@ export default function Index() {
         </>
     );
 }
-Index.layout = (page) => <Home children={page} />;
+Show.layout = (page) => <Home children={page} />;

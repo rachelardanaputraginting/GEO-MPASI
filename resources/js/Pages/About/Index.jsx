@@ -24,28 +24,21 @@ export default function Index() {
 
             {/* Detail About Start */}
             <Container>
-                <div className="w-full flex-wrap flex justify-between items-center mb-5 ">
-                    <div className="w-full">
-                        <h4 className="font-semibold text-secondary text-3xl">
-                           Tentang Kami
-                        </h4>
-                    </div>
-                    <div className="w-full flex justify-end">
-                        <span className="text-dark/80">
-                            Senin, 20 Februari 2024
-                        </span>
-                    </div>
+                <div className="w-full">
+                    <h4 className="font-semibold mb-8 text-secondary text-3xl">
+                        Tentang Kami
+                    </h4>
                 </div>
 
-                <div className="flex justify-center">
-                    <div className="w-full md:w-1/2">
+                <div className="flex flex-wrap lg:flex-nowrap justify-center gap-4">
+                    <div className="w-full lg:w-1/2">
                         <img
                             src="/images/app/hero_home.webp"
                             className="rounded aspect-video"
                             alt=""
                         />
                     </div>
-                    <div className="w-full md:w-1/2 space-y-8 py-8">
+                    <div className="w-full lg:w-1/2 space-y-8">
                         <p className="text-dark font-light tracking-wide">
                             Pisang adalah nama umum yang diberikan pada tumbuhan
                             terna berukuran besar dengan daun memanjang dan

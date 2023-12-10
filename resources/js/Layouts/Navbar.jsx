@@ -45,8 +45,8 @@ export default function Navbar() {
                             Dokter
                         </NavLink>
                         <NavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
+                            href={route("about.index")}
+                            active={route().current("about.index")}
                         >
                             Tentang
                         </NavLink>
