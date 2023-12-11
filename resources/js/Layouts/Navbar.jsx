@@ -1,15 +1,16 @@
-import React from 'react'
-import { useState } from 'react'
-import Dropdown from '@/Components/Dropdown'
-import NavLink from '@/Components/NavLink'
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
-import { Link, router, usePage } from '@inertiajs/react'
-import SecondaryButton from '@/Components/NavButton/SecondaryButton'
-import PrimaryButton from '@/Components/NavButton/PrimaryButton'
+import React from "react";
+import { useState } from "react";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { Link, router, usePage } from "@inertiajs/react";
+import SecondaryButton from "@/Components/NavButton/SecondaryButton";
+import PrimaryButton from "@/Components/NavButton/PrimaryButton";
 
 export default function Navbar() {
-    const { auth } = usePage().props
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
+    const { auth } = usePage().props;
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
 
     return (
         <nav className="bg-primary fixed z-[999] top-0 shadow-xl w-full">
@@ -52,26 +53,26 @@ export default function Navbar() {
                         </NavLink>
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
-                        <div className="flex gap-x-2">
-                            <SecondaryButton href={route("register")}>
-                                Daftar
-                            </SecondaryButton>
-                            <PrimaryButton href={route("login")}>
-                                Masuk
-                            </PrimaryButton>
-                        </div>
-                        {/* <Dropdown>
+                        {auth.user ? (
+                            <Dropdown>
                                 <Dropdown.Trigger>
                                     <span className="inline-flex rounded-md">
                                         <button
                                             type="button"
-                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            className="inline-flex items-center px-3 py-2 leading-4 font-medium rounded-md text-white bg-primary hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                         >
                                             <div className="flex items-center gap-2">
-
-                                                {/* <img src={`${auth.user.picture}` ? `/storage/${auth.user.picture}` : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"} alt={auth.user.picture} className='h-10 w-10 rounded' />
-                                                {auth.user.name} */}
-                        {/* </div>
+                                                <img
+                                                    src={
+                                                        `${auth.user.picture}`
+                                                            ? `/storage/${auth.user.picture}`
+                                                            : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
+                                                    }
+                                                    alt={auth.user.picture}
+                                                    className="h-10 w-10 rounded"
+                                                />
+                                                {auth.user.name}
+                                            </div>
 
                                             <svg
                                                 className="ml-2 -mr-0.5 h-4 w-4"
@@ -90,12 +91,34 @@ export default function Navbar() {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                    <Dropdown.Link href="">Profile</Dropdown.Link>
-                                    <Dropdown.Link href={route('logout')} method="post" as="button">
+                                    <Dropdown.Link href="">
+                                        Profile
+                                    </Dropdown.Link>
+                                    <Dropdown.Link href="">
+                                        <div className="flex justify-between items-center">
+                                            <p>Pesan Saya</p>
+                                            <span className="bg-fourth p-1 text-xs rounded text-white">10</span>
+                                        </div>
+                                    </Dropdown.Link>
+                                    <Dropdown.Link
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
+                                    >
                                         Log Out
                                     </Dropdown.Link>
-                                </Dropdown.Content> */}
-                        {/* </Dropdown> */}
+                                </Dropdown.Content>
+                            </Dropdown>
+                        ) : (
+                            <div className="flex gap-x-2">
+                                <SecondaryButton href={route("register")}>
+                                    Daftar
+                                </SecondaryButton>
+                                <PrimaryButton href={route("login")}>
+                                    Masuk
+                                </PrimaryButton>
+                            </div>
+                        )}
                     </div>
 
                     <div className="-mr-2 flex items-center sm:hidden">
@@ -158,21 +181,46 @@ export default function Navbar() {
                 </div>
 
                 <div className="pt-4 pb-1 border-t border-white">
-                    <div className="px-4">
-                        <div className="font-medium text-base text-white">
-                            {/* {auth.user.name} */}Rachel Ginting
-                        </div>
-                        <div className="font-medium text-sm text-white">
-                            Jenis User
-                        </div>
-                    </div>
+                    {auth.user ? (
+                        <>
+                            <div className="px-4">
+                                <div className="font-medium text-base text-white">
+                                    {auth.user.name}
+                                </div>
+                                <div className="font-medium text-sm text-white">
+                                    Jenis User
+                                </div>
+                            </div>
 
-                    <div className="mt-3 space-y-1">
-                        <ResponsiveNavLink href="">Profile</ResponsiveNavLink>
-                        <ResponsiveNavLink method="post" href="" as="button">
-                            Log Out
-                        </ResponsiveNavLink>
-                    </div>
+                            <div className="mt-3 space-y-1">
+                                <ResponsiveNavLink href="">
+                                    Profile
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href="">
+                                    <div className="flex justify-between">
+                                        <p>Pesan Saya</p>
+                                        <span>10</span>
+                                    </div>
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    method="post"
+                                    href={route("logout")}
+                                    as="button"
+                                >
+                                    Log Out
+                                </ResponsiveNavLink>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <ResponsiveNavLink href={route("register")}>
+                                Daftar
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route("login")}>
+                                Masuk
+                            </ResponsiveNavLink>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>

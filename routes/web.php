@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
@@ -28,5 +29,13 @@ Route::get('/doctor', [DoctorController::class, 'index'])->name('doctor.index');
 
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about.index'); // Get About
+
+// Admin
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+});
 
 require __DIR__.'/auth.php';
