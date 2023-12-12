@@ -39,35 +39,33 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
+                <div className="mb-4 font-medium text-sm text-primary">
                     {status}
                 </div>
             )}
 
             <div className="flex">
-                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-gray-300 p-8 py-16  sm:flex-col sm:justify-between">
+                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-dark p-8 py-16  sm:flex-col sm:justify-between">
                     <div>
-                        <img
-                            src={`/app/Logo Title X.png`}
-                            alt=""
-                            width="180px"
-                        />
+                        <h6 className="text-2xl font-semibold text-secondary">
+                            GEO-MPASI
+                        </h6>
                     </div>
                     <div>
                         <img
-                            src={`/app/login.svg`}
+                            src={`/images/app/auth/login.webp`}
                             alt=""
                             width="120%"
                             className="mx-auto"
                         />
                     </div>
                     <div>
-                        <h6 className="text-xl font-semibold text-slate-700">
-                            RANDA
+                        <h6 className="text-xl font-semibold text-secondary">
+                            GEO-MPASI
                         </h6>
-                        <p className="text-slate-500">
-                            Optimizing Business Processes with Point of Sales
-                            (POS) Application
+                        <p className="text-dark">
+                            Mari bersama-sama mencegah Growth Faltering di
+                            Indonesia
                         </p>
                     </div>
                 </div>
@@ -77,11 +75,11 @@ export default function Login({ status, canResetPassword }) {
                         className="w-full px-4 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-auto h-screen flex flex-col justify-center"
                     >
                         <div className="mb-8">
-                            <h6 className="text-3xl text-slate-700">
-                                Welcome Back
+                            <h6 className="text-2xl font-semibold text-dark">
+                                Selamat Datang Kembali
                             </h6>
-                            <p className="text-slate-500">
-                                Please enter your login credentials
+                            <p className="text-dark">
+                                Silakan masukkan kredensial login Anda
                             </p>
                         </div>
                         <div>
@@ -130,23 +128,23 @@ export default function Login({ status, canResetPassword }) {
                                     value={data.remember}
                                     onChange={handleOnChange}
                                 />
-                                <span className="ml-2 text-sm text-gray-600">
-                                    Remember me
+                                <span className="ml-2 text-sm text-dark">
+                                    Ingat Saya
                                 </span>
                             </label>
                             {canResetPassword && (
                                 <Link
                                     href={route("password.request")}
-                                    className="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    className="text-sm text-dark hover:text-dark rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark"
                                 >
-                                    Forgot your password?
+                                    Lupa Password?
                                 </Link>
                             )}
                         </div>
 
                         <div className="flex items-center justify-end">
                             <PrimaryButton disabled={processing}>
-                                Sign In
+                                Masuk
                             </PrimaryButton>
                         </div>
                     </form>
