@@ -91,13 +91,15 @@ export default function Navbar() {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                    <Dropdown.Link href="">
-                                        Profile
+                                    <Dropdown.Link href={route("profile.edit")}>
+                                        Profil Saya
                                     </Dropdown.Link>
                                     <Dropdown.Link href="">
                                         <div className="flex justify-between items-center">
                                             <p>Pesan Saya</p>
-                                            <span className="bg-fourth p-1 text-xs rounded text-white">10</span>
+                                            <span className="bg-fourth p-1 text-xs rounded text-white">
+                                                10
+                                            </span>
                                         </div>
                                     </Dropdown.Link>
                                     <Dropdown.Link
@@ -193,7 +195,7 @@ export default function Navbar() {
                             </div>
 
                             <div className="mt-3 space-y-1">
-                                <ResponsiveNavLink href="">
+                                <ResponsiveNavLink href={route("profile.edit")}>
                                     Profile
                                 </ResponsiveNavLink>
                                 <ResponsiveNavLink href="">

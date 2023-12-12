@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile',  'edit')->name('profile.edit'); //Edit Profile By username
+        Route::patch('/profile',  'update')->name('profile.update'); // Update Profile By username
+        Route::delete('/profile',  'destroy')->name('profile.destroy');
+    });
 
 });
 
