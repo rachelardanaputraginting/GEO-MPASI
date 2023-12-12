@@ -27,30 +27,55 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="hidden sm:-my-px sm:flex flex justify-between gap-8">
-                        <NavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
-                        >
-                            Beranda
-                        </NavLink>
-                        <NavLink
-                            href={route("article.index")}
-                            active={route().current("article.index")}
-                        >
-                            Artikel
-                        </NavLink>
-                        <NavLink
-                            href={route("doctor.index")}
-                            active={route().current("doctor.index")}
-                        >
-                            Dokter
-                        </NavLink>
-                        <NavLink
-                            href={route("about.index")}
-                            active={route().current("about.index")}
-                        >
-                            Tentang
-                        </NavLink>
+                        {auth.user.status == "guest" ? (
+                            <>
+                                <NavLink
+                                    href={route("home.index")}
+                                    active={route().current("home.index")}
+                                >
+                                    Beranda
+                                </NavLink>
+                                <NavLink
+                                    href={route("article.index")}
+                                    active={route().current("article.index")}
+                                >
+                                    Artikel
+                                </NavLink>
+                                <NavLink
+                                    href={route("doctor.index")}
+                                    active={route().current("doctor.index")}
+                                >
+                                    Dokter
+                                </NavLink>
+                                <NavLink
+                                    href={route("about.index")}
+                                    active={route().current("about.index")}
+                                >
+                                    Tentang
+                                </NavLink>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink
+                                    href={route("dashboard.index")}
+                                    active={route().current("dashboard.index")}
+                                >
+                                    Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route("article.index")}
+                                    active={route().current("article.index")}
+                                >
+                                    Pangan
+                                </NavLink>
+                                <NavLink
+                                    href={route("doctor.index")}
+                                    active={route().current("doctor.index")}
+                                >
+                                    Artikel
+                                </NavLink>
+                            </>
+                        )}
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
                         {auth.user ? (
@@ -173,9 +198,6 @@ export default function Navbar() {
                 }
             >
                 <div className="pt-2 pb-3 space-y-1">
-                    {/* <ResponsiveNavLink href={route('admin.dashboard')} active={route().current('admin.dashboard')}>
-                        Dashboard
-                    </ResponsiveNavLink> */}
                     <ResponsiveNavLink>Beranda</ResponsiveNavLink>
                     <ResponsiveNavLink>Artikel</ResponsiveNavLink>
                     <ResponsiveNavLink>Dokter</ResponsiveNavLink>

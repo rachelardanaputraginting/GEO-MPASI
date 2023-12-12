@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'username' => 'required|string|lowercase|max:255|unique:'.User::class,
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'status' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($user->status === "dokter") {
+        if ($user->status == "dokter") {
             return redirect(RouteServiceProvider::DASHBOARD);
         }else {
             return redirect(RouteServiceProvider::HOME);

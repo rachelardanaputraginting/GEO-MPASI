@@ -8,7 +8,7 @@ import Guest from "@/Layouts/Guest";
 import Select from "@/Components/Select";
 
 export default function Register() {
-    const { data, setData, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
         username: "",
@@ -25,15 +25,14 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        router.post(
-            route("register"),
+        router.post(route("register"),
             {
                 ...data,
                 status: data.status.name,
             },
             {
                 onSuccess: () => {
-
+                    toast.success("Registrasi Berhasil!");
                 },
             }
         );
