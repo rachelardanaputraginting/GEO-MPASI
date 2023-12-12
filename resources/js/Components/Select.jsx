@@ -20,7 +20,7 @@ export default function Select({ className = 'w-full', data, value, onChange, pl
             onChange={handleSelect}
             open={isOpen}
         >
-            <Listbox.Button className={clsx("flex h-11 w-full items-center justify-between rounded border border-gray-300 px-4 focus:outline-none", className)}>
+            <Listbox.Button className={clsx("flex h-11 w-full items-center bg-third focus:bg-white active:bg-white justify-between rounded border border-fifth px-4 focus:outline-none", className)}>
                 <span className="capitalize line-clamp-1">{value.name || value || placeholder}</span>
                 <div onClick={() => setIsOpen(!isOpen)}>
                     <svg
@@ -47,7 +47,7 @@ export default function Select({ className = 'w-full', data, value, onChange, pl
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Listbox.Options className="z-50 absolute right-0 mt-1 max-h-[10rem] w-full overflow-y-auto rounded border border-gray-300 bg-white py-1 shadow-sm">
+                <Listbox.Options className="z-50 absolute right-0 mt-1 max-h-[10rem] w-full overflow-y-auto rounded border border-fifth bg-white py-1 shadow-sm">
                     {filteredData.map((item) => (
                         <Listbox.Option key={item.id} value={item}>
                             {({ selected, active }) => (

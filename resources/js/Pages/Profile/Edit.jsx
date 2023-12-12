@@ -8,15 +8,10 @@ import {
     IconCategory,
     IconLocation,
     IconMail,
-    IconPhone,
-    IconSquare,
-    IconSquareFilled,
 } from "@tabler/icons-react";
-import { numberFormat } from "@/Libs/Helper";
-import ActionLink from "@/Components/ActionLink";
-import SecondaryButton from "@/Components/NavButton/SecondaryButton";
 import Breadcumbs from "@/Components/Breadcumbs";
 import Home from "@/Layouts/Home";
+import SecondaryButton from "@/Components/SecondaryButton";
 
 export default function Edit({
     auth,
@@ -77,25 +72,26 @@ export default function Edit({
                 <div className="md:flex w-full mx-auto gap-4">
                     <div className="w-full sm:w-1/3 flex flex-wrap flex-col gap-4 justify-start mb-6">
                         <img
-                            // src={
-                            //     auth.user.picture
-                            //         ? picture
-                            //         : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
-                            // }
-                            // alt={auth.user.picture}
-                            className="w-[100%] bg-white aspect-square rounded-xl mx-auto"
+                            src={
+                                auth.user.picture
+                                    ? picture
+                                    : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
+                            }
+                            alt={auth.user.picture}
+                            className="w-[100%] bg-white border aspect-square rounded border-fifth p-4 mx-auto"
                         />
                         <div className="px-4">
                             <h3 className="text-2xl font-semibold mt-8 text-slate-700">
                                 {auth.user.name}
                             </h3>
                             <p className="text-lg mt-0 text-dark">
-                                {/* {auth.user.username} */}
+                                {auth.user.username}
                             </p>
                         </div>
                         <div className="flex px-4 gap-2">
-                            <div className="grid grid-cols-3 w-full gap-2">
+                            <div className={`grid grid-cols-${auth.user.status === "guest" ? '3' : '2'} w-full gap-2`}>
                                 <SecondaryButton
+                                    type="button"
                                     className={`w-full text-secondary ${
                                         activeTab === "Edit"
                                             ? "bg-secondary border-none text-white"
@@ -106,6 +102,7 @@ export default function Edit({
                                     Edit
                                 </SecondaryButton>
                                 <SecondaryButton
+                                    type="button"
                                     className={`w-full text-secondary ${
                                         activeTab === "Account"
                                             ? "bg-secondary border-none text-white"
@@ -115,10 +112,11 @@ export default function Edit({
                                 >
                                     Account
                                 </SecondaryButton>
-                                {auth.user.status === "employee" ? (
+                                {auth.user.status === "admin" || auth.user.status === "dokter" ? (
                                     ""
                                 ) : (
                                     <SecondaryButton
+                                        type="button"
                                         className={`w-full text-secondary ${
                                             activeTab === "Delete"
                                                 ? "bg-secondary border-none text-white"
@@ -142,12 +140,6 @@ export default function Edit({
                                 <IconMail color="gray" size={20} />
                                 <p className="text-base mt-0 text-dark">
                                     {auth.user.email}
-                                </p>
-                            </div>
-                            <div className="flex gap-2 items-center">
-                                <IconPhone color="gray" size={20} />
-                                <p className="text-base mt-0 text-dark">
-                                    {/* {auth.user.number_phone} */}
                                 </p>
                             </div>
                             <div className="flex gap-2 items-center">
@@ -178,14 +170,13 @@ export default function Edit({
                                 />
                             </div>
                         )}
-                        {/* {auth.user.status == "employee"
+                        {auth.user.status == "admin"
                             ? ""
                             : activeTab === "Delete" && (
                                   <div className="p-4 w-full rounded border border-1 border-fifth">
                                       <DeleteUserForm className="w-full" />
                                   </div>
-                              )} */}
-
+                              )}
                         {activeTab === "Information" && (
                             <>
                                 <div className="p-4 w-full space-y-8 rounded border border-1 border-fifth">
@@ -195,12 +186,15 @@ export default function Edit({
                                         </h2>
                                         <p className="mt-1  text-dark">
                                             Selamat datang di{" "}
-                                            <span className="font-semibold">GEO-MPASI</span>, solusi
-                                            inovatif untuk mencegah growth
-                                            faltering di Indonesia. Kami adalah
-                                            sebuah aplikasi yang didedikasikan
-                                            untuk memberikan kontribusi positif
-                                            dalam meningkatkan kesehatan dan
+                                            <span className="font-semibold">
+                                                GEO-MPASI
+                                            </span>
+                                            , solusi inovatif untuk mencegah
+                                            growth faltering di Indonesia. Kami
+                                            adalah sebuah aplikasi yang
+                                            didedikasikan untuk memberikan
+                                            kontribusi positif dalam
+                                            meningkatkan kesehatan dan
                                             pertumbuhan anak-anak di seluruh
                                             negeri. Tujuan kami yang sangat
                                             mulia adalah mencegah growth
