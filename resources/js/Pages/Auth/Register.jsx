@@ -1,58 +1,80 @@
-import { useEffect } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
-import Guest from '@/Layouts/Guest';
+import { useEffect } from "react";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, Link, router, useForm } from "@inertiajs/react";
+import Guest from "@/Layouts/Guest";
+import Select from "@/Components/Select";
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+    const { data, setData, processing, errors, reset } = useForm({
+        name: "",
+        email: "",
+        username: "",
+        status: "",
+        password: "",
+        password_confirmation: "",
     });
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset("password", "password_confirmation");
         };
     }, []);
 
     const submit = (e) => {
         e.preventDefault();
+        router.post(
+            route("register"),
+            {
+                ...data,
+                status: data.status.name,
+            },
+            {
+                onSuccess: () => {
 
-        post(route('register'));
+                },
+            }
+        );
     };
+
+    const statuses = [
+        {
+            id: 1,
+            name: "dokter",
+        },
+        {
+            id: 3,
+            name: "tamu",
+        },
+    ];
 
     return (
         <>
             <Head title="Register" />
             <div className="flex">
-                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-gray-300 p-8 py-16  sm:flex-col sm:justify-between">
+                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-fifth p-8 py-16  sm:flex-col sm:justify-between">
                     <div>
-                        <img
-                            src={`/app/Logo Title X.png`}
-                            alt=""
-                            width="180px"
-                        />
+                        <h6 className="text-2xl font-semibold text-secondary">
+                            GEO-MPASI
+                        </h6>
                     </div>
                     <div>
                         <img
-                            src={`/app/login.svg`}
+                            src={`/images/app/auth/register.webp`}
                             alt=""
                             width="120%"
                             className="mx-auto"
                         />
                     </div>
                     <div>
-                        <h6 className="text-xl font-semibold text-slate-700">
-                            RANDA
+                        <h6 className="text-xl font-semibold text-secondary">
+                            GEO-MPASI
                         </h6>
-                        <p className="text-slate-500">
-                            Optimizing Business Processes with Point of Sales
-                            (POS) Application
+                        <p className="text-dark">
+                            Mari bersama-sama mencegah Growth Faltering di
+                            Indonesia
                         </p>
                     </div>
                 </div>
@@ -60,6 +82,14 @@ export default function Register() {
                     onSubmit={submit}
                     className="w-full px-4 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-auto h-screen flex flex-col justify-center"
                 >
+                    <div className="mb-8">
+                        <h6 className="text-2xl font-semibold text-dark">
+                            Selamat Datang di GEO-MPASI
+                        </h6>
+                        <p className="text-dark">
+                            Silakan Data Diri Anda dengan benar
+                        </p>
+                    </div>
                     <div>
                         <InputLabel htmlFor="name" value="Name" />
 
@@ -103,27 +133,28 @@ export default function Register() {
                             value={data.username}
                             className="mt-1 block w-full"
                             autoComplete="username"
-                            onChange={(e) => setData("username", e.target.value)}
+                            onChange={(e) =>
+                                setData("username", e.target.value)
+                            }
                             required
                         />
 
-                        <InputError message={errors.username} className="mt-2" />
+                        <InputError
+                            message={errors.username}
+                            className="mt-2"
+                        />
                     </div>
-                    <div className="mt-4">
-                        <InputLabel htmlFor="address" value="Alamat" />
 
-                        <TextInput
-                            id="address"
-                            type="text"
-                            name="address"
-                            value={data.address}
-                            className="mt-1 block w-full"
-                            autoComplete="address"
-                            onChange={(e) => setData("address", e.target.value)}
-                            required
+                    <div className="mt-4">
+                        <InputLabel htmlFor="status" value="Status" />
+                        <Select
+                            placeholder="Tipe Pengguna"
+                            value={data.status}
+                            data={statuses}
+                            onChange={(e) => setData("status", e)}
                         />
 
-                        <InputError message={errors.username} className="mt-2" />
+                        <InputError className="mt-2" message={errors.status} />
                     </div>
 
                     <div className="mt-4">
@@ -176,7 +207,7 @@ export default function Register() {
                     <div className="flex items-center justify-end mt-4">
                         <Link
                             href={route("login")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="text-dark text-sm text-z hover:text-z rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
                             Already registered?
                         </Link>

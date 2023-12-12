@@ -45,7 +45,7 @@ export default function Login({ status, canResetPassword }) {
             )}
 
             <div className="flex">
-                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-dark p-8 py-16  sm:flex-col sm:justify-between">
+                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-fifth p-8 py-16  sm:flex-col sm:justify-between">
                     <div>
                         <h6 className="text-2xl font-semibold text-secondary">
                             GEO-MPASI

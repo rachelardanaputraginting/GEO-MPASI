@@ -1,16 +1,22 @@
-import InputError from '@/Components/InputError'
-import InputFile from '@/Components/InputFIle'
-import InputLabel from '@/Components/InputLabel'
-import PrimaryButton from '@/Components/PrimaryButton'
-import SecondaryButton from '@/Components/SecondaryButton'
-import Select from '@/Components/Select'
-import TextInput from '@/Components/TextInput'
-import Textarea from '@/Components/Textarea'
-import { Link, useForm, usePage, router } from '@inertiajs/react'
-import toast from 'react-hot-toast'
+import InputError from "@/Components/InputError";
+import InputFile from "@/Components/InputFIle";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
+import Select from "@/Components/Select";
+import TextInput from "@/Components/TextInput";
+import Textarea from "@/Components/Textarea";
+import { Link, useForm, usePage, router } from "@inertiajs/react";
+import toast from "react-hot-toast";
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className, onHandleTab, picture }) {
-    const user = usePage().props.auth.user
+export default function UpdateProfileInformation({
+    mustVerifyEmail,
+    status,
+    className,
+    onHandleTab,
+    picture,
+}) {
+    const user = usePage().props.auth.user;
 
     const { data, setData, errors, processing } = useForm({
         name: user.name,
@@ -18,51 +24,62 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         email: user.email,
         address: user.address,
         status: user.status,
-        picture: ''
-    })
+        picture: "",
+    });
 
     const submit = (e) => {
-        e.preventDefault()
-        router.post(route('profile.update'), {
-            _method: 'patch',
-            ...data,
-            status: data.status.name
-        }, {
-            onSuccess: () => {
-                    toast.success('Profile has been updated!')
+        e.preventDefault();
+        router.post(
+            route("profile.update"),
+            {
+                _method: "patch",
+                ...data,
+                status: data.status.name,
+            },
+            {
+                onSuccess: () => {
+                    toast.success("Profile has been updated!");
+                },
             }
-        })
-    }
-
+        );
+    };
 
     const statuses = [
         {
             id: 1,
-            name: "dokter"
-
+            name: "dokter",
         },
         {
             id: 2,
-            name: "admin"
+            name: "admin",
         },
         {
             id: 3,
-            name: "guest"
-        }
+            name: "tamu",
+        },
     ];
 
     return (
         <div className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Ubah Profil</h2>
+                <h2 className="text-lg font-medium text-gray-900">
+                    Ubah Profil
+                </h2>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-
                 <div className="mb-6">
                     <InputLabel htmlFor="picture" value="Picture" />
-                    <InputFile picture={picture} name='picture' id='picture' className="text-third" onChange={(e) => setData('picture', e.target.files[0])} />
-                    {errors.picture ? <Error className='' value={errors.picture} /> : null}
+                    <InputFile
+                        picture={picture}
+                        name="picture"
+                        id="picture"
+                        className="text-third"
+                        onChange={(e) => setData("picture", e.target.files[0])}
+                    />
+                    {errors.picture ? (
+                        <Error className="" value={errors.picture} />
+                    ) : null}
                 </div>
 
                 <div>
@@ -72,7 +89,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         id="name"
                         className="mt-1 block w-full"
                         value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) => setData("name", e.target.value)}
                         required
                         isFocused
                         autoComplete="name"
@@ -87,7 +104,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         id="username"
                         className="mt-1 block w-full"
                         value={data.username}
-                        onChange={(e) => setData('username', e.target.value)}
+                        onChange={(e) => setData("username", e.target.value)}
                         required
                         isFocused
                         autoComplete="username"
@@ -103,7 +120,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         type="email"
                         className="mt-1 block w-full"
                         value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => setData("email", e.target.value)}
                         required
                         autoComplete="username"
                     />
@@ -128,27 +145,40 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 </div> */}
                 <div>
                     <InputLabel htmlFor="status" value="Status" />
-                    <Select value={data.status} data={statuses} onChange={(e) => setData('status', e)} />
-                {errors.status ? <Error className='' value={errors.status} /> : null}
+                    <Select
+                        value={data.status}
+                        data={statuses}
+                        onChange={(e) => setData("status", e)}
+                    />
+                    {errors.status ? (
+                        <Error className="" value={errors.status} />
+                    ) : null}
 
                     <InputError className="mt-2" message={errors.status} />
                 </div>
                 <div>
                     <InputLabel htmlFor="address" value="Address" />
 
-                    <Textarea rows="6" name='address' id='address' onChange={(e) => setData('address', e.target.value)} value={data.address} />
-                    {errors.address ? <Error className='' value={errors.address} /> : null}
+                    <Textarea
+                        rows="6"
+                        name="address"
+                        id="address"
+                        onChange={(e) => setData("address", e.target.value)}
+                        value={data.address}
+                    />
+                    {errors.address ? (
+                        <Error className="" value={errors.address} />
+                    ) : null}
 
                     <InputError className="mt-2" message={errors.address} />
                 </div>
-
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800">
                             Your email address is unverified.
                             <Link
-                                href={route('verification.send')}
+                                href={route("verification.send")}
                                 method="post"
                                 as="button"
                                 className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -157,19 +187,22 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                             </Link>
                         </p>
 
-                        {status === 'verification-link-sent' && (
+                        {status === "verification-link-sent" && (
                             <div className="mt-2 font-medium text-sm text-green-600">
-                                A new verification link has been sent to your email address.
+                                A new verification link has been sent to your
+                                email address.
                             </div>
                         )}
                     </div>
                 )}
 
                 <div className="flex items-center gap-2">
-                    <SecondaryButton type='button' onClick={onHandleTab} >Cancel</SecondaryButton>
+                    <SecondaryButton type="button" onClick={onHandleTab}>
+                        Cancel
+                    </SecondaryButton>
                     <PrimaryButton disabled={processing}>Update</PrimaryButton>
                 </div>
             </form>
         </div>
-    )
+    );
 }

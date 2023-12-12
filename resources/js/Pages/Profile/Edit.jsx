@@ -89,7 +89,7 @@ export default function Edit({
                             </p>
                         </div>
                         <div className="flex px-4 gap-2">
-                            <div className={`grid grid-cols-${auth.user.status === "guest" ? '3' : '2'} w-full gap-2`}>
+                            <div className={`grid grid-cols-${auth.user.status === "tamu" ? '3' : '2'} w-full gap-2`}>
                                 <SecondaryButton
                                     type="button"
                                     className={`w-full text-secondary ${
