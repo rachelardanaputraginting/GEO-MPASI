@@ -135,7 +135,7 @@ export default function Index({ total_categories, ...props }) {
             <Head title="Groceries" />
             <Container>
                 {/* Start Groceries */}
-                <h3 className="text-2xl mt-10 mb-4 font-semibold text-slate-700">
+                <h3 className="text-2xl mt-10 mb-4 font-semibold text-dark">
                     Groceries
                 </h3>
                 <div className="flex justify-between gap-2 w-full item-center my-2">
@@ -173,7 +173,7 @@ export default function Index({ total_categories, ...props }) {
                             <>
                                 {groceries.map((groceries, index) => (
                                     <tr
-                                        className="bg-white border-b text-gray-500"
+                                        className="bg-white border-b text-fifth"
                                         key={index}
                                     >
                                         <Table.Td className="w-5">
@@ -184,7 +184,7 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td>
                                             {" "}
                                             <div
-                                                className="w-10 h-10 p-2 border border-gray rounded"
+                                                className="w-10 h-10 p-2 border border-fifth rounded"
                                                 dangerouslySetInnerHTML={{
                                                     __html: groceries.icon,
                                                 }}
@@ -193,7 +193,7 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
                                                 <ActionButton
-                                                    className="w-8 h-8 bg-yellow-400"
+                                                    className="w-8 h-8 bg-secondary"
                                                     type="button"
                                                     onClick={() =>
                                                         openModalCategory(
@@ -222,7 +222,7 @@ export default function Index({ total_categories, ...props }) {
                                 ))}
                             </>
                         ) : (
-                            <tr className="bg-white border-b text-gray-500 text-center">
+                            <tr className="bg-white border-b text-fifth text-center">
                                 <Table.Td colSpan="4">No data</Table.Td>
                             </tr>
                         )} */}

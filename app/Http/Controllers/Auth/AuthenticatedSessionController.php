@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if ($user->status == "guest") {
+        if ($user->status == "tamu") {
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
             return redirect()->intended(RouteServiceProvider::DASHBOARD);

@@ -135,7 +135,7 @@ export default function Index({ total_categories, ...props }) {
             <Head title="Articles" />
             <Container>
                 {/* Start Articles */}
-                <h3 className="text-2xl mt-10 mb-4 font-semibold text-slate-700">
+                <h3 className="text-2xl mt-10 mb-4 font-semibold text-dark">
                     Articles
                 </h3>
                 <div className="flex justify-between gap-2 w-full item-center my-2">
@@ -173,7 +173,7 @@ export default function Index({ total_categories, ...props }) {
                             <>
                                 {articles.map((articles, index) => (
                                     <tr
-                                        className="bg-white border-b text-gray-500"
+                                        className="bg-white border-b text-third"
                                         key={index}
                                     >
                                         <Table.Td className="w-5">
@@ -184,7 +184,7 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td>
                                             {" "}
                                             <div
-                                                className="w-10 h-10 p-2 border border-gray rounded"
+                                                className="w-10 h-10 p-2 border border-third rounded"
                                                 dangerouslySetInnerHTML={{
                                                     __html: articles.icon,
                                                 }}
@@ -193,7 +193,7 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
                                                 <ActionButton
-                                                    className="w-8 h-8 bg-yellow-400"
+                                                    className="w-8 h-8 bg-secondary"
                                                     type="button"
                                                     onClick={() =>
                                                         openModalCategory(
@@ -222,7 +222,7 @@ export default function Index({ total_categories, ...props }) {
                                 ))}
                             </>
                         ) : (
-                            <tr className="bg-white border-b text-gray-500 text-center">
+                            <tr className="bg-white border-b text-third text-center">
                                 <Table.Td colSpan="4">No data</Table.Td>
                             </tr>
                         )} */}
@@ -231,7 +231,7 @@ export default function Index({ total_categories, ...props }) {
                 {/* {articles.length > 0 && (
                     <div className="flex w-full justify-between items-center">
                         <Pagination meta={meta} links={links} />
-                        <p className="text-sm text-slate-500 mt-10">
+                        <p className="text-sm text-dark mt-10">
                             Total Articles:{" "}
                             <span className="font-bold">
                                 {total_categories}

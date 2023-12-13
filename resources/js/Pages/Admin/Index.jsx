@@ -3,7 +3,7 @@ import Hero from "@/Components/Fragment/Hero";
 import PrimaryButton from "@/Components/PrimaryButton";
 import App from "@/Layouts/App";
 import { Head, usePage } from "@inertiajs/react";
-import { IconMessage, IconToolsKitchen2 } from "@tabler/icons-react";
+import { IconMessage, IconPaperclip, IconToolsKitchen2 } from "@tabler/icons-react";
 
 export default function Index() {
 
@@ -68,11 +68,11 @@ export default function Index() {
                     <div className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] ">
                         <div className="border rounded border-fifth">
                             <div className="flex justify-center h-64">
-                                <IconToolsKitchen2
+                                <IconPaperclip
                                     stroke={1}
                                     className="aspect-ratio text-dark/90"
                                     size={240}
-                                ></IconToolsKitchen2>
+                                ></IconPaperclip>
 
                             </div>
                             <div className="py-2">

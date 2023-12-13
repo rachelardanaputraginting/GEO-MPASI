@@ -51,10 +51,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($user->status == "dokter") {
-            return redirect(RouteServiceProvider::DASHBOARD);
-        }else {
+        if ($user->status == "tamu") {
             return redirect(RouteServiceProvider::HOME);
+        }else {
+            return redirect(RouteServiceProvider::DASHBOARD);
         }
 
     }
