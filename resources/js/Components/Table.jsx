@@ -4,7 +4,7 @@ import React from 'react'
 const Table = ({children, className}) => {
     return (
         <div className={clsx(className, 'w-full relative overflow-x-auto')}>
-            <table className={clsx('w-full text-sm text-left text-gray-500 text-gray-400', className)}>
+            <table className={clsx('w-full text-sm text-left text-dark text-dark', className)}>
                 {children}
             </table>
         </div>
@@ -13,7 +13,7 @@ const Table = ({children, className}) => {
 
 const Thead = ({ children, className }) => {
     return (
-        <thead className={clsx(" text-slate-700 uppercase bg-gray-100 bg-gray-100", className)}>
+        <thead className={clsx(" text-dark uppercase bg-third rounded", className)}>
             {children}
         </thead>
     )

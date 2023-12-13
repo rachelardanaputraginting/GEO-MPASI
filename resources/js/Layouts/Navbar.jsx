@@ -83,9 +83,9 @@ export default function Navbar() {
                                             Pangan
                                         </NavLink>
                                         <NavLink
-                                            href={route("doctor.index")}
+                                            href={route("admin.articles.index")}
                                             active={route().current(
-                                                "doctor.index"
+                                                "admin.articles.index"
                                             )}
                                         >
                                             Artikel
