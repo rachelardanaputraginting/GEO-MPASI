@@ -27,55 +27,73 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="hidden sm:-my-px sm:flex flex justify-between gap-8">
-                        {auth.user.status == "tamu" ? (
+                        {auth.user ? (
                             <>
-                                <NavLink
-                                    href={route("home.index")}
-                                    active={route().current("home.index")}
-                                >
-                                    Beranda
-                                </NavLink>
-                                <NavLink
-                                    href={route("article.index")}
-                                    active={route().current("article.index")}
-                                >
-                                    Artikel
-                                </NavLink>
-                                <NavLink
-                                    href={route("doctor.index")}
-                                    active={route().current("doctor.index")}
-                                >
-                                    Dokter
-                                </NavLink>
-                                <NavLink
-                                    href={route("about.index")}
-                                    active={route().current("about.index")}
-                                >
-                                    Tentang
-                                </NavLink>
+                                {auth.user.status == "tamu" ? (
+                                    <>
+                                        <NavLink
+                                            href={route("home.index")}
+                                            active={route().current(
+                                                "home.index"
+                                            )}
+                                        >
+                                            Beranda
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("article.index")}
+                                            active={route().current(
+                                                "article.index"
+                                            )}
+                                        >
+                                            Artikel
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("doctor.index")}
+                                            active={route().current(
+                                                "doctor.index"
+                                            )}
+                                        >
+                                            Dokter
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("about.index")}
+                                            active={route().current(
+                                                "about.index"
+                                            )}
+                                        >
+                                            Tentang
+                                        </NavLink>
+                                    </>
+                                ) : (
+                                    <>
+                                        <NavLink
+                                            href={route("dashboard.index")}
+                                            active={route().current(
+                                                "dashboard.index"
+                                            )}
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("admin.groceries.index")}
+                                            active={route().current(
+                                                "admin.groceries.index"
+                                            )}
+                                        >
+                                            Pangan
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("doctor.index")}
+                                            active={route().current(
+                                                "doctor.index"
+                                            )}
+                                        >
+                                            Artikel
+                                        </NavLink>
+                                    </>
+                                )}
                             </>
-                        ) : (
-                            <>
-                                <NavLink
-                                    href={route("dashboard.index")}
-                                    active={route().current("dashboard.index")}
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    href={route("article.index")}
-                                    active={route().current("article.index")}
-                                >
-                                    Pangan
-                                </NavLink>
-                                <NavLink
-                                    href={route("doctor.index")}
-                                    active={route().current("doctor.index")}
-                                >
-                                    Artikel
-                                </NavLink>
-                            </>
-                        )}
+                        ) : null}
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
                         {auth.user ? (
@@ -198,34 +216,52 @@ export default function Navbar() {
                 }
             >
                 <div className="pt-2 pb-3 space-y-1">
-                    {auth.user.status == "tamu" ? (
+                    {auth.user ? (
                         <>
-                            <ResponsiveNavLink href={route("home.index")}>
-                                Beranda
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink href={route("article.index")}>
-                                Artikel
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink href={route("doctor.index")}>
-                                Dokter
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink href={route("about.index")}>
-                                Tentang
-                            </ResponsiveNavLink>
+                            {auth.user.status === "tamu" ? (
+                                <>
+                                    <ResponsiveNavLink
+                                        href={route("home.index")}
+                                    >
+                                        Beranda
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href={route("article.index")}
+                                    >
+                                        Artikel
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href={route("doctor.index")}
+                                    >
+                                        Dokter
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href={route("about.index")}
+                                    >
+                                        Tentang
+                                    </ResponsiveNavLink>
+                                </>
+                            ) : (
+                                <>
+                                    <ResponsiveNavLink
+                                        href={route("home.index")}
+                                    >
+                                        Dashboard
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href={route("article.index")}
+                                    >
+                                        Pangan
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href={route("doctor.index")}
+                                    >
+                                        Artikel
+                                    </ResponsiveNavLink>
+                                </>
+                            )}
                         </>
-                    ) : (
-                        <>
-                            <ResponsiveNavLink href={route("home.index")}>
-                                Dashboard
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink href={route("article.index")}>
-                                Pangan
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink href={route("doctor.index")}>
-                                Artikel
-                            </ResponsiveNavLink>
-                        </>
-                    )}
+                    ) : null}
                 </div>
 
                 <div className="pt-4 pb-1 border-t border-white">
