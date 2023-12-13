@@ -182,7 +182,7 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td className="w-5">
                                             {meta.from + index}
                                         </Table.Td>
-                                        <Table.Td>{article.judul}</Table.Td>
+                                        <Table.Td>{article.title}</Table.Td>
                                         <Table.Td>{article.user.name}</Table.Td>
                                         <Table.Td>
                                             {article.category_article.name}
