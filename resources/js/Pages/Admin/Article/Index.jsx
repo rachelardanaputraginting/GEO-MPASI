@@ -11,10 +11,8 @@ import TextInput from "@/Components/TextInput";
 import Toast from "@/Components/Toast";
 import App from "@/Layouts/App";
 import { Head, useForm, router, Link } from "@inertiajs/react";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft, IconEye } from "@tabler/icons-react";
 import {
-    IconArrowLeftSquare,
-    IconArrowRight,
     IconEdit,
     IconPlus,
     IconTrash,
@@ -35,7 +33,10 @@ export default function Index({ total_categories, ...props }) {
         setData,
     } = useForm({
         name: "",
-        icon: "",
+        user_id: "",
+        category_article_id: "",
+        categories: "",
+        picture: "",
     });
 
     let [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function Index({ total_categories, ...props }) {
 
     const [articleSlug, setArticleSlug] = useState("");
 
-    function openModalCategory(articleSlug, type) {
+    function openModalArticle(articleSlug, type) {
         setIsOpen(true);
         setModalArticle("Article");
         setModalType(type);
@@ -99,15 +100,15 @@ export default function Index({ total_categories, ...props }) {
         });
     };
 
-    // const onUpdate = (articleSlug) => (e) => {
-    //     e.preventDefault();
-    //     put(route("admin.articles.update", articleSlug), {
-    //         ...data,
-    //         onSuccess: () => {
-    //             toast.success("Article has been updated!"), setIsOpen(false);
-    //         },
-    //     });
-    // };
+    const onUpdate = (articleSlug) => (e) => {
+        e.preventDefault();
+        put(route("admin.articles.update", articleSlug), {
+            ...data,
+            onSuccess: () => {
+                toast.success("Article has been updated!"), setIsOpen(false);
+            },
+        });
+    };
 
     const onDelete = (articleSlug) => {
         destroy(route("admin.articles.destroy", articleSlug), {
@@ -144,7 +145,7 @@ export default function Index({ total_categories, ...props }) {
                             <IconArrowLeft size={18} />
                         </ActionLink>
                         <ActionButton
-                            onClick={() => openModalCategory("", "create")}
+                            onClick={() => openModalArticle("", "create")}
                             type="button"
                         >
                             <IconPlus size={18} />
@@ -163,15 +164,17 @@ export default function Index({ total_categories, ...props }) {
                     <Table.Thead>
                         <tr>
                             <Table.Th>#</Table.Th>
-                            <Table.Th>Name</Table.Th>
-                            <Table.Th>Icon</Table.Th>
-                            <Table.Th>Action</Table.Th>
+                            <Table.Th>Judul</Table.Th>
+                            <Table.Th>Author</Table.Th>
+                            <Table.Th>Kategori</Table.Th>
+                            <Table.Th>Deskripsi</Table.Th>
+                            <Table.Th>Aksi</Table.Th>
                         </tr>
                     </Table.Thead>
                     <Table.Tbody>
-                        {/* {articles.length > 0 ? (
+                        {articles.length > 0 ? (
                             <>
-                                {articles.map((articles, index) => (
+                                {articles.map((article, index) => (
                                     <tr
                                         className="bg-white border-b text-third"
                                         key={index}
@@ -179,16 +182,14 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td className="w-5">
                                             {meta.from + index}
                                         </Table.Td>
-                                        <Table.Td>{articles.name}</Table.Td>
-
+                                        <Table.Td>{article.judul}</Table.Td>
+                                        <Table.Td>{article.user.name}</Table.Td>
                                         <Table.Td>
-                                            {" "}
-                                            <div
-                                                className="w-10 h-10 p-2 border border-third rounded"
-                                                dangerouslySetInnerHTML={{
-                                                    __html: articles.icon,
-                                                }}
-                                            />
+                                            {article.category_article.name}
+                                        </Table.Td>
+                                        <Table.Td className="w-[600px]"
+                                        >
+                                            {article.description}
                                         </Table.Td>
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
@@ -196,8 +197,20 @@ export default function Index({ total_categories, ...props }) {
                                                     className="w-8 h-8 bg-secondary"
                                                     type="button"
                                                     onClick={() =>
-                                                        openModalCategory(
-                                                            articles.slug,
+                                                        openModalArticle(
+                                                            article.slug,
+                                                            "edit"
+                                                        )
+                                                    }
+                                                >
+                                                    <IconEye size={18} />
+                                                </ActionButton>
+                                                <ActionButton
+                                                    className="w-8 h-8 bg-secondary"
+                                                    type="button"
+                                                    onClick={() =>
+                                                        openModalArticle(
+                                                            article.slug,
                                                             "edit"
                                                         )
                                                     }
@@ -209,8 +222,8 @@ export default function Index({ total_categories, ...props }) {
                                                     type="button"
                                                     onClick={() =>
                                                         openToast(
-                                                            category.slug,
-                                                            category.name
+                                                            article.slug,
+                                                            article.name
                                                         )
                                                     }
                                                 >
@@ -225,10 +238,10 @@ export default function Index({ total_categories, ...props }) {
                             <tr className="bg-white border-b text-third text-center">
                                 <Table.Td colSpan="4">No data</Table.Td>
                             </tr>
-                        )} */}
+                        )}
                     </Table.Tbody>
                 </Table>
-                {/* {articles.length > 0 && (
+                {articles.length > 0 && (
                     <div className="flex w-full justify-between items-center">
                         <Pagination meta={meta} links={links} />
                         <p className="text-sm text-dark mt-10">
@@ -238,11 +251,11 @@ export default function Index({ total_categories, ...props }) {
                             </span>{" "}
                         </p>
                     </div>
-                )} */}
+                )}
                 {/* End Articles */}
 
                 {/* Modal */}
-                {/* <MyModal
+                <MyModal
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
                     size={`1/3`}
@@ -267,10 +280,10 @@ export default function Index({ total_categories, ...props }) {
                             </PrimaryButton>
                         </div>
                     </form>
-                </MyModal> */}
+                </MyModal>
 
                 {/* Toast */}
-                {/* <Toast
+                <Toast
                     isToast={isToast}
                     onClose={() => setIsToast(false)}
                     title={toastTitle}
@@ -283,7 +296,7 @@ export default function Index({ total_categories, ...props }) {
                             Yes
                         </PrimaryButton>
                     </div>
-                </Toast> */}
+                </Toast>
             </Container>
         </>
     );

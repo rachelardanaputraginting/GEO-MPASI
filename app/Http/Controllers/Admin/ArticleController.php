@@ -5,16 +5,53 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Resources\Admin\ArticleResource;
+use App\Models\CategoryArticle;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
     {
-        $articles = Article::all();
-        return inertia('Admin/Article/Index', compact('articles'));
+        $this->category_articles = CategoryArticle::select('id', 'name', 'slug')->get();
+    }
+
+    public function index(Request $request)
+    {
+        $total_articles = Article::get()->count();
+
+        $search_articles = $request->input('search');
+
+        if ($search_articles) {
+            $articles = Article::query()
+                ->where('title', 'LIKE', "%$search_articles%")
+                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description')
+                ->with([
+                    "user" => fn ($query) => $query->select('name', 'username', 'id'),
+                ])
+                ->with([
+                    "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
+                ])
+                ->latest()
+                ->fastPaginate(10)->withQueryString();
+        } else {
+            $articles = Article::query()
+                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description')
+                ->with([
+                    "user" => fn ($query) => $query->select('name', 'username', 'id'),
+                ])
+                ->with([
+                    "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
+                ])
+                ->latest()
+                ->fastPaginate(10);
+        }
+
+
+        return inertia('Admin/Article/Index', [
+            "articles" => ArticleResource::collection($articles),
+            "total_articles" => $total_articles,
+            "category_articles" => $this->category_articles,
+        ]);
     }
 
     /**
