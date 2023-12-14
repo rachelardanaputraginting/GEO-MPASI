@@ -22,7 +22,7 @@ class ArticleController extends Controller
         if ($search_articles) {
             $articles = Article::query()
                 ->where('title', 'LIKE', "%$search_articles%")
-                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description')
+                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
                 ])
@@ -33,7 +33,7 @@ class ArticleController extends Controller
                 ->fastPaginate(10)->withQueryString();
         } else {
             $articles = Article::query()
-                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description')
+                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
                 ])

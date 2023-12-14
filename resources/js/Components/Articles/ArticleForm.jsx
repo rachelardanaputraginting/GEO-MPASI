@@ -1,11 +1,11 @@
 import React from "react";
-import InputLabel from "./InputLabel";
-import Error from "./Error";
+import InputLabel from "../InputLabel";
+import Error from "../Error";
 import { usePage } from "@inertiajs/react";
-import TextInput from "./TextInput";
-import Textarea from "./Textarea";
-import Select from "./Select";
-import InputFile from "./InputFIle";
+import TextInput from "../TextInput";
+import Textarea from "../Textarea";
+import Select from "../Select";
+import InputFile from "../InputFIle";
 
 export default function ArticleForm({ data, setData }) {
     const { errors, category_articles } = usePage().props;

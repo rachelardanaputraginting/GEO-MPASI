@@ -1,6 +1,7 @@
 import ActionLink from "@/Components/ActionLink";
 import ActionButton from "@/Components/Actionbutton";
-import ArticleForm from "@/Components/ArticleForm";
+import ArticleDetail from "@/Components/Articles/ArticleDetail";
+import ArticleForm from "@/Components/Articles/ArticleForm";
 import Container from "@/Components/Container";
 import MyModal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
@@ -65,7 +66,9 @@ export default function Index({
                 title: selectedCategory.title,
                 category_article_id: selectedCategory.category_article_id,
                 description: selectedCategory.description,
-                picture: selectedProduct.picture,
+                description_full: selectedCategory.description_full,
+                picture: selectedCategory.picture,
+                created_at: selectedCategory.created_at,
             });
         } else {
             setArticleSlug("");
@@ -180,7 +183,7 @@ export default function Index({
                     <Table.Thead>
                         <tr>
                             <Table.Th>#</Table.Th>
-                            <Table.Th>Picture</Table.Th>
+                            <Table.Th>Gambar</Table.Th>
                             <Table.Th>Judul</Table.Th>
                             <Table.Th>Author</Table.Th>
                             <Table.Th>Kategori</Table.Th>
@@ -209,7 +212,7 @@ export default function Index({
                                                 className="rounded w-12 h-12"
                                             />
                                         </Table.Td>
-                                        <Table.Td>{article.picture}</Table.Td>
+                                        <Table.Td>{article.title}</Table.Td>
                                         <Table.Td>{article.user.name}</Table.Td>
                                         <Table.Td>
                                             {article.category_article.name}
@@ -225,7 +228,7 @@ export default function Index({
                                                     onClick={() =>
                                                         openModalArticle(
                                                             article.slug,
-                                                            "edit"
+                                                            "detail"
                                                         )
                                                     }
                                                 >
@@ -288,24 +291,36 @@ export default function Index({
                     type={modalType}
                     title={modalArticle}
                 >
-                    <form
-                        onSubmit={
-                            modalType == "create"
-                                ? onSubmit
-                                : onUpdate(articleSlug)
-                        }
-                        className="mt-6"
-                    >
-                        <ArticleForm {...{ data, setData }} />
-                        <div className="flex justify-end gap-2">
-                            <SecondaryButton onClick={() => onCancelModal()}>
-                                Cancel
-                            </SecondaryButton>
-                            <PrimaryButton type="submit">
-                                {modalType == "create" ? "Create" : "Update"}
-                            </PrimaryButton>
-                        </div>
-                    </form>
+                    {modalType == "detail" ? (
+                        <>
+                            <ArticleDetail {...{ data }} />
+                        </>
+                    ) : (
+                        <>
+                            <form
+                                onSubmit={
+                                    modalType == "create"
+                                        ? onSubmit
+                                        : onUpdate(articleSlug)
+                                }
+                                className="mt-6"
+                            >
+                                <ArticleForm {...{ data, setData }} />
+                                <div className="flex justify-end gap-2">
+                                    <SecondaryButton
+                                        onClick={() => onCancelModal()}
+                                    >
+                                        Cancel
+                                    </SecondaryButton>
+                                    <PrimaryButton type="submit">
+                                        {modalType == "create"
+                                            ? "Create"
+                                            : "Update"}
+                                    </PrimaryButton>
+                                </div>
+                            </form>
+                        </>
+                    )}
                 </MyModal>
 
                 {/* Toast */}

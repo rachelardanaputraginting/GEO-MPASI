@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ class ArticleResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "slug" => $this->slug,
+            "created_at" => Carbon::parse($this->created_at)->locale('id')->formatLocalized('%A, %d %B %Y'),
             'category_article' => [
                 'id' => $this->category_article->id,
                 'name' => $this->category_article->name,
@@ -31,6 +33,7 @@ class ArticleResource extends JsonResource
                 'username' => $this->user->username,
             ],
             "description" => Str::limit($this->description, 200, ' ...'),
+            "description_full" => $this->description, 200,
             "picture" => $this->picture ? Storage::url($this->picture) : null,
         ];
     }
