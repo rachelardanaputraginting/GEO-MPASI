@@ -19,6 +19,7 @@ class ArticleResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "slug" => $this->slug,
             'category_article' => [
                 'id' => $this->category_article->id,
                 'name' => $this->category_article->name,

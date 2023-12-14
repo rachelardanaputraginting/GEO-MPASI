@@ -13,9 +13,9 @@ export default function CategoryForm({ data, setData }) {
     return (
         <>
             <div className="mb-4">
-                <InputLabel htmlFor="name" value="Name" />
-                <TextInput name='name' id='name' className="w-full" onChange={onChange} value={data.name} />
-                {errors.name ? <Error className='' value={errors.name} /> : null}
+                <InputLabel htmlFor="title" value="Name" />
+                <TextInput name='title' id='title' className="w-full" onChange={onChange} value={data.title} />
+                {errors.title ? <Error className='' value={errors.title} /> : null}
             </div>
             <div className="mb-4">
                 <InputLabel htmlFor="icon" value="Icon" />

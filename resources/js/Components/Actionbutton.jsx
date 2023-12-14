@@ -4,9 +4,9 @@ export default function ActionButton({ className = 'w-10 h-10 ', disabled, child
             {...props}
             type={type}
             className={
-                `flex justify-center items-center bg-secondary text-white rounded ${
-                    disabled && 'opacity-25'
-                } ` + className
+                `w-10 h-10 flex justify-center items-center text-white rounded ${
+                    disabled && "opacity-25"
+                } ` +  className
             }
             disabled={disabled}
         >

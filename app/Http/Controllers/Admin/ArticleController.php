@@ -7,16 +7,14 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Resources\Admin\ArticleResource;
 use App\Models\CategoryArticle;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-        $this->category_articles = CategoryArticle::select('id', 'name', 'slug')->get();
-    }
-
     public function index(Request $request)
     {
+        $category_articles = CategoryArticle::select('id', 'name', 'slug')->get();
+
         $total_articles = Article::get()->count();
 
         $search_articles = $request->input('search');
@@ -50,24 +48,25 @@ class ArticleController extends Controller
         return inertia('Admin/Article/Index', [
             "articles" => ArticleResource::collection($articles),
             "total_articles" => $total_articles,
-            "category_articles" => $this->category_articles,
+            "category_articles" => $category_articles,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $picture = $request->file('picture');
+
+        Article::create([
+            "title" => $request->title,
+            "slug" => $slug = str($request->title . '-' .  rand(10, 100))->slug(),
+            "user_id" => Auth::id(),
+            "category_article_id" => $request->category_article_id,
+            "description" => $request->description,
+            "picture" => $request->hasFile('picture') ? $picture->storeAs('images/articles', $slug . '.' . $picture->extension()) : null
+        ]);
+
+        return back();
     }
 
     /**
@@ -78,20 +77,9 @@ class ArticleController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Article $article)
     {
-        //
     }
 
     /**

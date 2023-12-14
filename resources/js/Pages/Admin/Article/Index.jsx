@@ -1,6 +1,6 @@
 import ActionLink from "@/Components/ActionLink";
 import ActionButton from "@/Components/Actionbutton";
-import CategoryForm from "@/Components/CategoryForm";
+import ArticleForm from "@/Components/ArticleForm";
 import Container from "@/Components/Container";
 import MyModal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
@@ -12,15 +12,15 @@ import Toast from "@/Components/Toast";
 import App from "@/Layouts/App";
 import { Head, useForm, router, Link } from "@inertiajs/react";
 import { IconArrowLeft, IconEye } from "@tabler/icons-react";
-import {
-    IconEdit,
-    IconPlus,
-    IconTrash,
-} from "@tabler/icons-react";
+import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function Index({ total_categories, ...props }) {
+export default function Index({
+    total_categories,
+    category_articles,
+    ...props
+}) {
     const { data: articles, meta, links } = props.articles;
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -32,10 +32,10 @@ export default function Index({ total_categories, ...props }) {
         data,
         setData,
     } = useForm({
-        name: "",
+        title: "",
         user_id: "",
         category_article_id: "",
-        categories: "",
+        description: "",
         picture: "",
     });
 
@@ -57,19 +57,23 @@ export default function Index({ total_categories, ...props }) {
         setArticleSlug(articleSlug);
         if (articleSlug) {
             const selectedCategory = articles.find(
-                (category) => category.slug === articleSlug
+                (article) => article.slug === articleSlug
             );
 
             setArticleSlug(articleSlug);
             setData({
-                name: selectedCategory.name,
-                icon: selectedCategory.icon,
+                title: selectedCategory.title,
+                category_article_id: selectedCategory.category_article_id,
+                description: selectedCategory.description,
+                picture: selectedProduct.picture,
             });
         } else {
             setArticleSlug("");
             setData({
-                name: "",
-                icon: "",
+                title: "",
+                category_article_id: "",
+                description: "",
+                picture: "",
             });
         }
     }
@@ -90,14 +94,25 @@ export default function Index({ total_categories, ...props }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("admin.articles.index"), {
-            data,
-            onSuccess: () => {
-                toast.success("Article has been created!");
-                setIsOpen(false);
-                setData({ name: "", icon: "" });
+        router.post(
+            `/admin/article`,
+            {
+                ...data,
+                category_article_id: data.category_article_id.id,
             },
-        });
+            {
+                onSuccess: () => {
+                    setIsOpen(false),
+                        setData({
+                            title: "",
+                            category_article_id: "",
+                            description: "",
+                            picture: "",
+                        }),
+                        toast.success("Artikel Berhasil Ditambahkan!");
+                },
+            }
+        );
     };
 
     const onUpdate = (articleSlug) => (e) => {
@@ -105,7 +120,7 @@ export default function Index({ total_categories, ...props }) {
         put(route("admin.articles.update", articleSlug), {
             ...data,
             onSuccess: () => {
-                toast.success("Article has been updated!"), setIsOpen(false);
+                toast.success("Artikel Berhasil Diubah!"), setIsOpen(false);
             },
         });
     };
@@ -145,6 +160,7 @@ export default function Index({ total_categories, ...props }) {
                             <IconArrowLeft size={18} />
                         </ActionLink>
                         <ActionButton
+                            className="bg-secondary"
                             onClick={() => openModalArticle("", "create")}
                             type="button"
                         >
@@ -164,6 +180,7 @@ export default function Index({ total_categories, ...props }) {
                     <Table.Thead>
                         <tr>
                             <Table.Th>#</Table.Th>
+                            <Table.Th>Picture</Table.Th>
                             <Table.Th>Judul</Table.Th>
                             <Table.Th>Author</Table.Th>
                             <Table.Th>Kategori</Table.Th>
@@ -182,19 +199,28 @@ export default function Index({ total_categories, ...props }) {
                                         <Table.Td className="w-5">
                                             {meta.from + index}
                                         </Table.Td>
-                                        <Table.Td>{article.title}</Table.Td>
+                                        <Table.Td>
+                                            <img
+                                                src={
+                                                    article.picture
+                                                        ? article.picture
+                                                        : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                                }
+                                                className="rounded w-12 h-12"
+                                            />
+                                        </Table.Td>
+                                        <Table.Td>{article.picture}</Table.Td>
                                         <Table.Td>{article.user.name}</Table.Td>
                                         <Table.Td>
                                             {article.category_article.name}
                                         </Table.Td>
-                                        <Table.Td className="w-[600px]"
-                                        >
+                                        <Table.Td className="w-[600px]">
                                             {article.description}
                                         </Table.Td>
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
                                                 <ActionButton
-                                                    className="w-8 h-8 bg-secondary"
+                                                    className="w-8 h-8 bg-primary"
                                                     type="button"
                                                     onClick={() =>
                                                         openModalArticle(
@@ -218,7 +244,7 @@ export default function Index({ total_categories, ...props }) {
                                                     <IconEdit size={18} />
                                                 </ActionButton>
                                                 <ActionButton
-                                                    className="w-8 h-8 bg-red-500"
+                                                    className="w-8 h-8 bg-dark"
                                                     type="button"
                                                     onClick={() =>
                                                         openToast(
@@ -258,7 +284,7 @@ export default function Index({ total_categories, ...props }) {
                 <MyModal
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
-                    size={`1/3`}
+                    size={`2/3`}
                     type={modalType}
                     title={modalArticle}
                 >
@@ -270,7 +296,7 @@ export default function Index({ total_categories, ...props }) {
                         }
                         className="mt-6"
                     >
-                        <CategoryForm {...{ data, setData }} />
+                        <ArticleForm {...{ data, setData }} />
                         <div className="flex justify-end gap-2">
                             <SecondaryButton onClick={() => onCancelModal()}>
                                 Cancel
