@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import Navbar from './Navbar'
+import NavbarAdmin from './NavbarAdmin'
 
 export default function App({ children }) {
     return (
@@ -26,7 +26,7 @@ export default function App({ children }) {
                 }}
             />
 
-            <Navbar />
+            <NavbarAdmin />
             <main>{children}</main>
         </div>
     )

@@ -7,7 +7,7 @@ import { Link, router, usePage } from "@inertiajs/react";
 import SecondaryButton from "@/Components/NavButton/SecondaryButton";
 import PrimaryButton from "@/Components/NavButton/PrimaryButton";
 
-export default function Navbar() {
+export default function NavbarAdmin() {
     const { auth } = usePage().props;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -28,28 +28,22 @@ export default function Navbar() {
                     </div>
                     <div className="hidden sm:-my-px sm:flex flex justify-between gap-8">
                         <NavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
+                            href={route("dashboard.index")}
+                            active={route().current("dashboard.index")}
                         >
-                            Beranda
+                            Dashboard
                         </NavLink>
                         <NavLink
-                            href={route("article.index")}
-                            active={route().current("article.index")}
+                            href={route("admin.groceries.index")}
+                            active={route().current("admin.groceries.index")}
+                        >
+                            Pangan
+                        </NavLink>
+                        <NavLink
+                            href={route("admin.articles.index")}
+                            active={route().current("admin.articles.index")}
                         >
                             Artikel
-                        </NavLink>
-                        <NavLink
-                            href={route("doctor.index")}
-                            active={route().current("doctor.index")}
-                        >
-                            Dokter
-                        </NavLink>
-                        <NavLink
-                            href={route("about.index")}
-                            active={route().current("about.index")}
-                        >
-                            Tentang
                         </NavLink>
                     </div>
                     <div className="hidden w-1/4 flex justify-end sm:flex sm:items-center">
@@ -174,16 +168,13 @@ export default function Navbar() {
             >
                 <div className="pt-2 pb-3 space-y-1">
                     <ResponsiveNavLink href={route("home.index")}>
-                        Beranda
+                        Dashboard
                     </ResponsiveNavLink>
                     <ResponsiveNavLink href={route("article.index")}>
-                        Artikel
+                        Pangan
                     </ResponsiveNavLink>
                     <ResponsiveNavLink href={route("doctor.index")}>
-                        Dokter
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink href={route("about.index")}>
-                        Tentang
+                        Artikel
                     </ResponsiveNavLink>
                 </div>
 
@@ -201,7 +192,7 @@ export default function Navbar() {
 
                             <div className="mt-3 space-y-1">
                                 <ResponsiveNavLink href={route("profile.edit")}>
-                                    Profile
+                                    Profil Saya
                                 </ResponsiveNavLink>
                                 <ResponsiveNavLink href="">
                                     <div className="flex w-full justify-between">

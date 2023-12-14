@@ -252,7 +252,7 @@ export default function Index({
                                                     onClick={() =>
                                                         openToast(
                                                             article.slug,
-                                                            article.name
+                                                            article.title
                                                         )
                                                     }
                                                 >
