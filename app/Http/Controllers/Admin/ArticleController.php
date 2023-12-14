@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Admin\ArticleResource;
 use App\Models\CategoryArticle;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -87,6 +88,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        if ($article->picture) {
+            Storage::delete($article->picture);
+        }
+
+        $article->delete();
     }
 }

@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/article', 'index')->name('admin.articles.index');
         Route::post('/article', 'store')->name('admin.articles.store');
         Route::put('/article/{article:slug}', 'update')->name('admin.articles.update');
+        Route::delete('/article/{article:slug}', 'destroy')->name('admin.articles.destroy');
     });
 });
 
