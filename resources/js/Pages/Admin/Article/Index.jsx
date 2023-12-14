@@ -140,7 +140,7 @@ export default function Index({
         e.preventDefault();
         setSearchQuery(e.target.value);
         router.get(
-            `/admin/setting/articles`,
+            `/admin/article`,
             {
                 search: e.target.value,
             },
