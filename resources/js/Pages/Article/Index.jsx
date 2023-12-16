@@ -4,12 +4,25 @@ import Hero from "@/Components/Fragment/Hero";
 import PrimaryButton from "@/Components/NavButton/PrimaryButton";
 import Pagination from "@/Components/Pagination";
 import Home from "@/Layouts/Home";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Index({ test, ...props }) {
     const { data: articles, meta, links } = props.articles;
-    // const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setSearchQuery(e.target.value);
+        router.get(
+            `/article`,
+            {
+                search: e.target.value,
+            },
+            {
+                preserveState: true,
+            }
+        );
+    };
     return (
         <>
             <Head title="Artikel" />
@@ -23,6 +36,8 @@ export default function Index({ test, ...props }) {
                         text="Indonesia Sehat, Indonesia Hebat Indonesia Kuat"
                         placeholder="Masukkan Judul Artikel"
                         type="search"
+                        defaultValue={searchQuery}
+                        onChange={handleSearch}
                     ></Hero.HeroLeft>
                     <Hero.HeroRight></Hero.HeroRight>
                 </Hero>
@@ -38,7 +53,7 @@ export default function Index({ test, ...props }) {
                     {articles.length > 0 ? (
                         <>
                             {articles.map((article, index) => (
-                                <div className="border justify-between flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
+                                <div key={index} className="border justify-between flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
                                     <div className="">
                                         <img
                                             src={

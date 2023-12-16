@@ -8,7 +8,16 @@ const Hero = ({ children }) => {
         </div>
     );
 };
-const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
+const HeroLeft = ({
+    title,
+    subtitle,
+    location = "",
+    text,
+    type,
+    placeholder,
+    onChange,
+    defaultValue,
+}) => {
     return (
         <div className="w-full md:w-2/3 order-2 md:order-1">
             <div className="w-full md:pr-8 h-full flex justify-between flex-col">
@@ -28,6 +37,8 @@ const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
                     <TextInput
                         type={type}
                         placeholder={placeholder}
+                        defaultValue={defaultValue}
+                        onChange={onChange}
                         className="w-full"
                     />
                 </div>
@@ -38,13 +49,13 @@ const HeroLeft = ({title, subtitle, location="", text, type, placeholder}) => {
 
 const HeroRight = () => {
     return (
-            <div className="w-full order-1 md:order-2 md:w-1/3 h-full">
-                <img
-                    src="images/app/hero_home.webp"
-                    className="rounded h-full w-full"
-                    alt=""
-                />
-            </div>
+        <div className="w-full order-1 md:order-2 md:w-1/3 h-full">
+            <img
+                src="images/app/hero_home.webp"
+                className="rounded h-full w-full"
+                alt=""
+            />
+        </div>
     );
 };
 
