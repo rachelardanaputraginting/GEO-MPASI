@@ -31,7 +31,7 @@ class ArticleController extends Controller
                     "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
-                ->fastPaginate(4)->withQueryString();
+                ->fastPaginate(10)->withQueryString();
         } else {
             $articles = Article::query()
                 ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
@@ -42,7 +42,7 @@ class ArticleController extends Controller
                     "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
-                ->fastPaginate(4);
+                ->fastPaginate(10);
         }
 
 

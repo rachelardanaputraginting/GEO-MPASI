@@ -131,7 +131,7 @@ export default function Index({
     const onDelete = (articleSlug) => {
         destroy(route("admin.articles.destroy", articleSlug), {
             onSuccess: () => {
-                toast.success("Article has been deleted!"), setIsToast(false);
+                toast.success("Artikel Berhasil Dihapus!"), setIsToast(false);
             },
         });
     };

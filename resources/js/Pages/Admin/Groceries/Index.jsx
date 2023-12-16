@@ -1,7 +1,8 @@
 import ActionLink from "@/Components/ActionLink";
 import ActionButton from "@/Components/Actionbutton";
-import CategoryForm from "@/Components/CategoryForm";
 import Container from "@/Components/Container";
+import GroceryDetail from "@/Components/Groceries/GroceryDetail";
+import GroceryForm from "@/Components/Groceries/GroceryForm";
 import MyModal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -11,18 +12,15 @@ import TextInput from "@/Components/TextInput";
 import Toast from "@/Components/Toast";
 import App from "@/Layouts/App";
 import { Head, useForm, router, Link } from "@inertiajs/react";
-import { IconArrowLeft } from "@tabler/icons-react";
-import {
-    IconArrowLeftSquare,
-    IconArrowRight,
-    IconEdit,
-    IconPlus,
-    IconTrash,
-} from "@tabler/icons-react";
+import { IconArrowLeft, IconEye } from "@tabler/icons-react";
+import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function Index({ total_categories, ...props }) {
+export default function Index({
+    total_groceries,
+    ...props
+}) {
     const { data: groceries, meta, links } = props.groceries;
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -34,8 +32,11 @@ export default function Index({ total_categories, ...props }) {
         data,
         setData,
     } = useForm({
-        name: "",
-        icon: "",
+        title: "",
+        user_id: "",
+        category_article_id: "",
+        description: "",
+        picture: "",
     });
 
     let [isOpen, setIsOpen] = useState(false);
@@ -47,28 +48,34 @@ export default function Index({ total_categories, ...props }) {
 
     const [modalType, setModalType] = useState("");
 
-    const [grocerySlug, setGrocerySlug] = useState("");
+    const [grocerySlug, setGrocerylug] = useState("");
 
-    function openModalCategory(grocerySlug, type) {
+    function openModalGrocery(grocerySlug, type) {
         setIsOpen(true);
-        setModalGrocery("Grocery");
+        setModalGrocery("Article");
         setModalType(type);
-        setGrocerySlug(grocerySlug);
+        setGrocerylug(grocerySlug);
         if (grocerySlug) {
             const selectedCategory = groceries.find(
-                (category) => category.slug === grocerySlug
+                (grocery) => grocery.slug === grocerySlug
             );
 
-            setGrocerySlug(grocerySlug);
+            setGrocerylug(grocerySlug);
             setData({
-                name: selectedCategory.name,
-                icon: selectedCategory.icon,
+                title: selectedCategory.title,
+                category_article_id: selectedCategory.category_article_id,
+                description: selectedCategory.description,
+                description_full: selectedCategory.description_full,
+                picture: selectedCategory.picture,
+                created_at: selectedCategory.created_at,
             });
         } else {
-            setGrocerySlug("");
+            setGrocerylug("");
             setData({
-                name: "",
-                icon: "",
+                title: "",
+                category_article_id: "",
+                description: "",
+                picture: "",
             });
         }
     }
@@ -76,7 +83,7 @@ export default function Index({ total_categories, ...props }) {
     function openToast(grocerySlug, title) {
         setIsToast(true);
         setToastTitle(title);
-        setGrocerySlug(grocerySlug);
+        setGrocerylug(grocerySlug);
     }
 
     function onCancelModal() {
@@ -89,30 +96,41 @@ export default function Index({ total_categories, ...props }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("admin.groceries.index"), {
-            data,
+        router.post(
+            `/admin/grocery`,
+            {
+                ...data,
+                category_article_id: data.category_article_id.id,
+            },
+            {
+                onSuccess: () => {
+                    setIsOpen(false),
+                        setData({
+                            title: "",
+                            category_article_id: "",
+                            description: "",
+                            picture: "",
+                        }),
+                        toast.success("Bahan Pangan Berhasil Ditambahkan!");
+                },
+            }
+        );
+    };
+
+    const onUpdate = (grocerySlug) => (e) => {
+        e.preventDefault();
+        put(route("admin.groceries.update", grocerySlug), {
+            ...data,
             onSuccess: () => {
-                toast.success("Grocery has been created!");
-                setIsOpen(false);
-                setData({ name: "", icon: "" });
+                toast.success("Bahan Pangan Berhasil Diubah!"), setIsOpen(false);
             },
         });
     };
 
-    // const onUpdate = (grocerySlug) => (e) => {
-    //     e.preventDefault();
-    //     put(route("admin.groceries.update", grocerySlug), {
-    //         ...data,
-    //         onSuccess: () => {
-    //             toast.success("Grocery has been updated!"), setIsOpen(false);
-    //         },
-    //     });
-    // };
-
     const onDelete = (grocerySlug) => {
         destroy(route("admin.groceries.destroy", grocerySlug), {
             onSuccess: () => {
-                toast.success("Grocery has been deleted!"), setIsToast(false);
+                toast.success("Bahan Pangan Berhasil Dihapus!"), setIsToast(false);
             },
         });
     };
@@ -121,7 +139,7 @@ export default function Index({ total_categories, ...props }) {
         e.preventDefault();
         setSearchQuery(e.target.value);
         router.get(
-            `/admin/setting/groceries`,
+            `/admin/grocery`,
             {
                 search: e.target.value,
             },
@@ -132,11 +150,11 @@ export default function Index({ total_categories, ...props }) {
     };
     return (
         <>
-            <Head title="Groceries" />
+            <Head title="Articles" />
             <Container>
-                {/* Start Groceries */}
+                {/* Start Articles */}
                 <h3 className="text-2xl mt-10 mb-4 font-semibold text-dark">
-                    Groceries
+                    Articles
                 </h3>
                 <div className="flex justify-between gap-2 w-full item-center my-2">
                     <div className="flex gap-2">
@@ -144,7 +162,8 @@ export default function Index({ total_categories, ...props }) {
                             <IconArrowLeft size={18} />
                         </ActionLink>
                         <ActionButton
-                            onClick={() => openModalCategory("", "create")}
+                            className="bg-secondary"
+                            onClick={() => openModalGrocery("", "create")}
                             type="button"
                         >
                             <IconPlus size={18} />
@@ -163,41 +182,59 @@ export default function Index({ total_categories, ...props }) {
                     <Table.Thead>
                         <tr>
                             <Table.Th>#</Table.Th>
-                            <Table.Th>Name</Table.Th>
-                            <Table.Th>Icon</Table.Th>
-                            <Table.Th>Action</Table.Th>
+                            <Table.Th>Gambar</Table.Th>
+                            <Table.Th>Nama</Table.Th>
+                            <Table.Th>Deskripsi</Table.Th>
+                            <Table.Th>Author</Table.Th>
+                            <Table.Th>Aksi</Table.Th>
                         </tr>
                     </Table.Thead>
                     <Table.Tbody>
-                        {/* {groceries.length > 0 ? (
+                        {groceries.length > 0 ? (
                             <>
-                                {groceries.map((groceries, index) => (
+                                {groceries.map((grocery, index) => (
                                     <tr
-                                        className="bg-white border-b text-fifth"
+                                        className="bg-white border-b text-third"
                                         key={index}
                                     >
                                         <Table.Td className="w-5">
                                             {meta.from + index}
                                         </Table.Td>
-                                        <Table.Td>{groceries.name}</Table.Td>
-
                                         <Table.Td>
-                                            {" "}
-                                            <div
-                                                className="w-10 h-10 p-2 border border-fifth rounded"
-                                                dangerouslySetInnerHTML={{
-                                                    __html: groceries.icon,
-                                                }}
+                                            <img
+                                                src={
+                                                    grocery.picture
+                                                        ? grocery.picture
+                                                        : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                                }
+                                                className="rounded w-12 h-12"
                                             />
                                         </Table.Td>
+                                        <Table.Td>{grocery.name}</Table.Td>
+                                        <Table.Td className="w-[600px]">
+                                            {grocery.description}
+                                        </Table.Td>
+                                        <Table.Td>{grocery.user.name}</Table.Td>
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
+                                                <ActionButton
+                                                    className="w-8 h-8 bg-primary"
+                                                    type="button"
+                                                    onClick={() =>
+                                                        openModalGrocery(
+                                                            grocery.slug,
+                                                            "detail"
+                                                        )
+                                                    }
+                                                >
+                                                    <IconEye size={18} />
+                                                </ActionButton>
                                                 <ActionButton
                                                     className="w-8 h-8 bg-secondary"
                                                     type="button"
                                                     onClick={() =>
-                                                        openModalCategory(
-                                                            groceries.slug,
+                                                        openModalGrocery(
+                                                            grocery.slug,
                                                             "edit"
                                                         )
                                                     }
@@ -205,12 +242,12 @@ export default function Index({ total_categories, ...props }) {
                                                     <IconEdit size={18} />
                                                 </ActionButton>
                                                 <ActionButton
-                                                    className="w-8 h-8 bg-red-500"
+                                                    className="w-8 h-8 bg-dark"
                                                     type="button"
                                                     onClick={() =>
                                                         openToast(
-                                                            category.slug,
-                                                            category.name
+                                                            grocery.slug,
+                                                            grocery.title
                                                         )
                                                     }
                                                 >
@@ -222,55 +259,67 @@ export default function Index({ total_categories, ...props }) {
                                 ))}
                             </>
                         ) : (
-                            <tr className="bg-white border-b text-fifth text-center">
+                            <tr className="bg-white border-b text-third text-center">
                                 <Table.Td colSpan="4">No data</Table.Td>
                             </tr>
-                        )} */}
+                        )}
                     </Table.Tbody>
                 </Table>
-                {/* {groceries.length > 0 && (
+                {groceries.length > 0 && (
                     <div className="flex w-full justify-between items-center">
                         <Pagination meta={meta} links={links} />
-                        <p className="text-sm text-slate-500 mt-10">
-                            Total Groceries:{" "}
+                        <p className="text-sm text-dark mt-10">
+                            Total Articles:{" "}
                             <span className="font-bold">
-                                {total_categories}
+                                {total_groceries}
                             </span>{" "}
                         </p>
                     </div>
-                )} */}
-                {/* End Groceries */}
+                )}
+                {/* End Articles */}
 
                 {/* Modal */}
-                {/* <MyModal
+                <MyModal
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
-                    size={`1/3`}
+                    size={`2/3`}
                     type={modalType}
                     title={modalGrocery}
                 >
-                    <form
-                        onSubmit={
-                            modalType == "create"
-                                ? onSubmit
-                                : onUpdate(grocerySlug)
-                        }
-                        className="mt-6"
-                    >
-                        <CategoryForm {...{ data, setData }} />
-                        <div className="flex justify-end gap-2">
-                            <SecondaryButton onClick={() => onCancelModal()}>
-                                Cancel
-                            </SecondaryButton>
-                            <PrimaryButton type="submit">
-                                {modalType == "create" ? "Create" : "Update"}
-                            </PrimaryButton>
-                        </div>
-                    </form>
-                </MyModal> */}
+                    {modalType == "detail" ? (
+                        <>
+                            <GroceryDetail {...{ data }} />
+                        </>
+                    ) : (
+                        <>
+                            <form
+                                onSubmit={
+                                    modalType == "create"
+                                        ? onSubmit
+                                        : onUpdate(grocerySlug)
+                                }
+                                className="mt-6"
+                            >
+                                <GroceryForm {...{ data, setData }} />
+                                <div className="flex justify-end gap-2">
+                                    <SecondaryButton
+                                        onClick={() => onCancelModal()}
+                                    >
+                                        Cancel
+                                    </SecondaryButton>
+                                    <PrimaryButton type="submit">
+                                        {modalType == "create"
+                                            ? "Create"
+                                            : "Update"}
+                                    </PrimaryButton>
+                                </div>
+                            </form>
+                        </>
+                    )}
+                </MyModal>
 
                 {/* Toast */}
-                {/* <Toast
+                <Toast
                     isToast={isToast}
                     onClose={() => setIsToast(false)}
                     title={toastTitle}
@@ -283,7 +332,7 @@ export default function Index({ total_categories, ...props }) {
                             Yes
                         </PrimaryButton>
                     </div>
-                </Toast> */}
+                </Toast>
             </Container>
         </>
     );
