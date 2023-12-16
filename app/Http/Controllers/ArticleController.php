@@ -49,4 +49,6 @@ class ArticleController extends Controller
             "article" => $article
         ]);
     }
+
+    
 }

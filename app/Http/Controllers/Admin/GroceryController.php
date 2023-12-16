@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\GroceryResource;
-use App\Models\Groceries;
+use App\Models\Grocery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class GroceriesController extends Controller
+class GroceryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +16,16 @@ class GroceriesController extends Controller
     public function index(Request $request)
     {
 
-        $total_groceries = Groceries::get()->count();
+        $total_groceries = Grocery::get()->count();
 
         $search_groceries = $request->input('search');
 
         if ($search_groceries) {
-            $groceries = Groceries::query()
+            $groceries = Grocery::query()
                 ->where('name', 'LIKE', "%$search_groceries%")
                 ->select(
                     'user_id',
+                    'slug',
                     'name',
                     'description',
                     'water',
@@ -57,9 +59,10 @@ class GroceriesController extends Controller
                 ->latest()
                 ->fastPaginate(10)->withQueryString();
         } else {
-            $groceries = Groceries::query()
+            $groceries = Grocery::query()
                 ->select(
                     'user_id',
+                    'slug',
                     'name',
                     'description',
                     'water',
@@ -119,7 +122,7 @@ class GroceriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Groceries $groceries)
+    public function show(Grocery $grocery)
     {
         //
     }
@@ -127,7 +130,7 @@ class GroceriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Groceries $groceries)
+    public function edit(Grocery $grocery)
     {
         //
     }
@@ -135,7 +138,7 @@ class GroceriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Groceries $groceries)
+    public function update(Request $request, Grocery $grocery)
     {
         //
     }
@@ -143,8 +146,12 @@ class GroceriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Groceries $groceries)
+    public function destroy(Grocery $grocery)
     {
-        //
+        if ($grocery->picture) {
+            Storage::delete($grocery->picture);
+        }
+
+        $grocery->delete();
     }
 }

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\GroceriesController;
+use App\Http\Controllers\Admin\GroceryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
@@ -47,8 +47,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
 
     // Groceries
-    Route::controller(GroceriesController::class)->group(function () {
+    Route::controller(GroceryController::class)->group(function () {
         Route::get('/grocery', 'index')->name('admin.groceries.index');
+        Route::delete('/grocery/{grocery:slug}', 'destroy')->name('admin.groceries.destroy');
     });
 
     // Articles

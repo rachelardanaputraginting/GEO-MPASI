@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Groceries;
+use App\Models\Grocery;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GroceriesSeeder extends Seeder
+class GrocerySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,8 @@ class GroceriesSeeder extends Seeder
         collect([
             [
                 'user_id' => 1,
-                'name' => 'Apples',
+                'name' => $title = 'Apples',
+                'slug' => str($title)->slug(),
                 'description' => 'Red delicious apples',
                 'water' => 86,
                 'protein' => 0.3,
@@ -44,7 +45,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Bananas',
+                'name' => $title = 'Bananas',
+                'slug' => str($title)->slug(),
                 'description' => 'Cavendish bananas',
                 'water' => 75,
                 'protein' => 1.1,
@@ -71,7 +73,8 @@ class GroceriesSeeder extends Seeder
                 'zink' => 0.2
             ],[
                 'user_id' => 1,
-                'name' => 'Broccoli',
+                'name' => $title = 'Broccoli',
+                'slug' => str($title)->slug(),
                 'description' => 'Fresh green broccoli florets',
                 'water' => 89,
                 'protein' => 2.6,
@@ -99,7 +102,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Almonds',
+                'name' => $title = 'Almonds',
+                'slug' => str($title)->slug(),
                 'description' => 'Raw almonds with skin',
                 'water' => 5,
                 'protein' => 21,
@@ -127,7 +131,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Brown Rice',
+                'name' => $title = 'Brown Rice',
+                'slug' => str($title)->slug(),
                 'description' => 'Long grain brown rice',
                 'water' => 12,
                 'protein' => 2.6,
@@ -155,7 +160,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Sweet Potato',
+                'name' => $title = 'Sweet Potato',
+                'slug' => str($title)->slug(),
                 'description' => 'Orange flesh sweet potato',
                 'water' => 77,
                 'protein' => 1.8,
@@ -183,7 +189,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Spinach',
+                'name' => $title = 'Spinach',
+                'slug' => str($title)->slug(),
                 'description' => 'Raw spinach leaves',
                 'water' => 91,
                 'protein' => 3,
@@ -211,7 +218,8 @@ class GroceriesSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Blueberries',
+                'name' => $title = 'Blueberries',
+                'slug' => str($title)->slug(),
                 'description' => 'Fresh blueberries',
                 'water' => 84,
                 'protein' => 0.7,
@@ -237,6 +245,6 @@ class GroceriesSeeder extends Seeder
                 'iron' => 0.3,
                 'zink' => 0.2
             ]
-        ])->each(fn ($groceries) => Groceries::create($groceries));
+        ])->each(fn ($groceries) => Grocery::create($groceries));
     }
 }

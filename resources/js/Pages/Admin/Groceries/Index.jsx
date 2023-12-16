@@ -17,10 +17,7 @@ import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function Index({
-    total_groceries,
-    ...props
-}) {
+export default function Index({ total_groceries, ...props }) {
     const { data: groceries, meta, links } = props.groceries;
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -32,10 +29,33 @@ export default function Index({
         data,
         setData,
     } = useForm({
-        title: "",
         user_id: "",
-        category_article_id: "",
+        slug: "",
+        name: "",
         description: "",
+        water: "",
+        protein: "",
+        fat: "",
+        carbohydr: "",
+        dietary: "",
+        fiber: "",
+        alcohol: "",
+        pufa: "",
+        cholesterol: "",
+        vit_a: "",
+        carotene: "",
+        vit_e: "",
+        vit_b1: "",
+        vit_b2: "",
+        vit_b6: "",
+        total_fol_acid: "",
+        vit_c: "",
+        sodium: "",
+        potassium: "",
+        magnessium: "",
+        phosphorus: "",
+        iron: "",
+        zink: "",
         picture: "",
     });
 
@@ -52,29 +72,75 @@ export default function Index({
 
     function openModalGrocery(grocerySlug, type) {
         setIsOpen(true);
-        setModalGrocery("Article");
+        setModalGrocery("Bahan Pangan");
         setModalType(type);
         setGrocerylug(grocerySlug);
         if (grocerySlug) {
-            const selectedCategory = groceries.find(
+            const selectedGrocery = groceries.find(
                 (grocery) => grocery.slug === grocerySlug
             );
 
             setGrocerylug(grocerySlug);
             setData({
-                title: selectedCategory.title,
-                category_article_id: selectedCategory.category_article_id,
-                description: selectedCategory.description,
-                description_full: selectedCategory.description_full,
-                picture: selectedCategory.picture,
-                created_at: selectedCategory.created_at,
+                user_id: selectedGrocery.user_id,
+                slug: selectedGrocery.slug,
+                name: selectedGrocery.name,
+                description: selectedGrocery.description,
+                water: selectedGrocery.water,
+                protein: selectedGrocery.protein,
+                fat: selectedGrocery.fat,
+                carbohydr: selectedGrocery.carbohydr,
+                dietary: selectedGrocery.dietary,
+                fiber: selectedGrocery.fiber,
+                alcohol: selectedGrocery.alcohol,
+                pufa: selectedGrocery.pufa,
+                cholesterol: selectedGrocery.cholesterol,
+                vit_a: selectedGrocery.vit_a,
+                carotene: selectedGrocery.carotene,
+                vit_e: selectedGrocery.vit_e,
+                vit_b1: selectedGrocery.vit_b1,
+                vit_b2: selectedGrocery.vit_b2,
+                vit_b6: selectedGrocery.vit_b6,
+                total_fol_acid: selectedGrocery.total_fol_acid,
+                vit_c: selectedGrocery.vit_c,
+                sodium: selectedGrocery.sodium,
+                potassium: selectedGrocery.potassium,
+                magnessium: selectedGrocery.magnessium,
+                phosphorus: selectedGrocery.phosphorus,
+                iron: selectedGrocery.iron,
+                zink: selectedGrocery.zink,
+                picture: selectedGrocery.picture,
             });
         } else {
             setGrocerylug("");
             setData({
-                title: "",
-                category_article_id: "",
+                user_id: "",
+                slug: "",
+                name: "",
                 description: "",
+                water: "",
+                protein: "",
+                fat: "",
+                carbohydr: "",
+                dietary: "",
+                fiber: "",
+                alcohol: "",
+                pufa: "",
+                cholesterol: "",
+                vit_a: "",
+                carotene: "",
+                vit_e: "",
+                vit_b1: "",
+                vit_b2: "",
+                vit_b6: "",
+                total_fol_acid: "",
+                vit_c: "",
+                sodium: "",
+                potassium: "",
+                magnessium: "",
+                phosphorus: "",
+                iron: "",
+                zink: "",
                 picture: "",
             });
         }
@@ -122,7 +188,8 @@ export default function Index({
         put(route("admin.groceries.update", grocerySlug), {
             ...data,
             onSuccess: () => {
-                toast.success("Bahan Pangan Berhasil Diubah!"), setIsOpen(false);
+                toast.success("Bahan Pangan Berhasil Diubah!"),
+                    setIsOpen(false);
             },
         });
     };
@@ -130,7 +197,8 @@ export default function Index({
     const onDelete = (grocerySlug) => {
         destroy(route("admin.groceries.destroy", grocerySlug), {
             onSuccess: () => {
-                toast.success("Bahan Pangan Berhasil Dihapus!"), setIsToast(false);
+                toast.success("Bahan Pangan Berhasil Dihapus!"),
+                    setIsToast(false);
             },
         });
     };
@@ -247,7 +315,7 @@ export default function Index({
                                                     onClick={() =>
                                                         openToast(
                                                             grocery.slug,
-                                                            grocery.title
+                                                            grocery.name
                                                         )
                                                     }
                                                 >
@@ -270,9 +338,7 @@ export default function Index({
                         <Pagination meta={meta} links={links} />
                         <p className="text-sm text-dark mt-10">
                             Total Articles:{" "}
-                            <span className="font-bold">
-                                {total_groceries}
-                            </span>{" "}
+                            <span className="font-bold">{total_groceries}</span>{" "}
                         </p>
                     </div>
                 )}

@@ -23,6 +23,7 @@ class GroceryResource extends JsonResource
                 'username' => $this->user->username,
             ],
             'name' => $this->name,
+            'slug' => $this->slug,
             "description" => Str::limit($this->description, 200, ' ...'),
             "description_full" => $this->description, 200,
             'water' => $this->water,
