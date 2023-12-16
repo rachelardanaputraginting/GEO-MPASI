@@ -42,7 +42,11 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function show(){
-        return inertia('Article/Show');
+    public function show(Article $article){
+        $article = Article::where('slug', $article->slug)->with('user')->first();
+
+        return inertia('Article/Show', [
+            "article" => $article
+        ]);
     }
 }

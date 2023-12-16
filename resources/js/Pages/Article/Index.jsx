@@ -38,10 +38,14 @@ export default function Index({ test, ...props }) {
                     {articles.length > 0 ? (
                         <>
                             {articles.map((article, index) => (
-                                <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
+                                <div className="border justify-between flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
                                     <div className="">
                                         <img
-                                            src="/images/app/hero_home.webp"
+                                            src={
+                                                article.picture
+                                                    ? article.picture
+                                                    : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                            }
                                             className="rounded aspect-video"
                                             alt=""
                                         />
@@ -73,7 +77,10 @@ export default function Index({ test, ...props }) {
 
                                         <div className="flex">
                                             <Link
-                                                href={route("article.show", 1)}
+                                                href={route(
+                                                    "article.show",
+                                                    article.slug
+                                                )}
                                                 type="button"
                                                 className="inline-flex items-center justify-center text-center px-4 py-2.5 bg-secondary rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-secondary focus:bg-secondary active:bg-orange-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                             >

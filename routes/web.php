@@ -25,7 +25,7 @@ Route::get('/', HomeController::class)->name('home.index');
 
 // Article
 Route::get('/article', [ArticleController::class, 'index'])->name('article.index'); // Get Article
-Route::get('/article/{slug}', [ArticleController::class, 'show'])->name('article.show'); // SHow Article By Slug
+Route::get('/article/{article:slug}', [ArticleController::class, 'show'])->name('article.show'); // SHow Article By Slug
 
 // Doctor
 Route::get('/doctor', [DoctorController::class, 'index'])->name('doctor.index'); // Get Doctor
