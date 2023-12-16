@@ -16,7 +16,7 @@ class ArticleController extends Controller
     {
         $category_articles = CategoryArticle::select('id', 'name', 'slug')->get();
 
-        $total_articles = Article::get()->count();
+        $total_category_articles = Article::get()->count();
 
         $search_articles = $request->input('search');
 
@@ -31,7 +31,7 @@ class ArticleController extends Controller
                     "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
-                ->fastPaginate(10)->withQueryString();
+                ->fastPaginate(4)->withQueryString();
         } else {
             $articles = Article::query()
                 ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
@@ -42,13 +42,13 @@ class ArticleController extends Controller
                     "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
-                ->fastPaginate(10);
+                ->fastPaginate(4);
         }
 
 
         return inertia('Admin/Article/Index', [
             "articles" => ArticleResource::collection($articles),
-            "total_articles" => $total_articles,
+            "total_category_articles" => $total_category_articles,
             "category_articles" => $category_articles,
         ]);
     }

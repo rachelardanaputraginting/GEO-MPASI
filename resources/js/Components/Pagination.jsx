@@ -11,7 +11,7 @@ export default function Pagination({ meta, links }) {
                         {links.prev ? (
                             <li>
                                 <Link
-                                    className="rounded border inline-flex p-2 bg-fourth"
+                                    className="rounded border inline-flex p-2 bg-primary"
                                     href={links.prev}
                                     preserveScroll
                                 >
@@ -69,7 +69,7 @@ function LeftIcon() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-slate-700"
+            className="h-5 w-5 text-dark"
             viewBox="0 0 20 20"
             fill="currentColor"
         >
@@ -86,7 +86,7 @@ function RightIcon() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-slate-700"
+            className="h-5 w-5 text-dark"
             viewBox="0 0 20 20"
             fill="currentColor"
         >
@@ -104,8 +104,8 @@ function PaginateLink({ active, href, children }) {
         <li>
             <Link
                 className={clsx(
-                    active && 'text-red-500 font-semibold border-orange-500 bg-white',
-                    'w-11 h-9 text-sm rounded shadow-sm border border-gray-300 text-third flex items-center justify-center'
+                    active && 'text-secondary font-semibold border-primary bg-white',
+                    'w-11 h-9 text-sm rounded shadow-sm border border-fifth text-dark flex items-center justify-center'
                 )}
                 href={href}
                 preserveScroll

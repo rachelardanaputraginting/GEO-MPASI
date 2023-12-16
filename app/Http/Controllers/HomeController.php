@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Torann\GeoIP\Facades\GeoIP;
 
 class HomeController extends Controller
 {
@@ -11,6 +13,11 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return inertia('Home/Index');
+        // Dapatkan alamat IP dari klien
+        
+        $geolocation = "The IP address $request->ipinfo->country.";
+
+        dd($geolocation);
+        return inertia('Home/Index', compact('geolocation'));
     }
 }

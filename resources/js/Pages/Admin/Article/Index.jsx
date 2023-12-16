@@ -18,7 +18,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Index({
-    total_categories,
+    total_category_articles,
     category_articles,
     ...props
 }) {
@@ -276,7 +276,7 @@ export default function Index({
                         <p className="text-sm text-dark mt-10">
                             Total Articles:{" "}
                             <span className="font-bold">
-                                {total_categories}
+                                {total_category_articles}
                             </span>{" "}
                         </p>
                     </div>
