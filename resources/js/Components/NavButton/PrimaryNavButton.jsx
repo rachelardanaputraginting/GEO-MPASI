@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function PrimaryButton({
+export default function PrimaryNavButton({
     href,
     className = "",
     children,

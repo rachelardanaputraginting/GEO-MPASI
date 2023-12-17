@@ -3,9 +3,8 @@ import Container from "@/Components/Container";
 import Hero from "@/Components/Fragment/Hero";
 import GroceryDetail from "@/Components/Groceries/GroceryDetail";
 import MyModal from "@/Components/Modal";
-import PrimaryButton from "@/Components/NavButton/PrimaryButton";
-import NavLink from "@/Components/NavLink";
-import Table from "@/Components/Table";
+import PrimaryNavButton from "@/Components/NavButton/PrimaryNavButton";
+import PrimaryButton from "@/Components/PrimaryButton";
 import Home from "@/Layouts/Home";
 import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
@@ -177,9 +176,9 @@ export default function Index({ articles, ...props }) {
                             </p>
                         </div>
                         <div className="flex justify-end items-end">
-                            <PrimaryButton href={route("article.index")}>
+                            <PrimaryNavButton href={route("article.index")}>
                                 Selengkapnya
-                            </PrimaryButton>
+                            </PrimaryNavButton>
                         </div>
                     </div>
                     <div className="w-min scrolling-wrapper h-[420px] gap-4 flex overflow-scroll">

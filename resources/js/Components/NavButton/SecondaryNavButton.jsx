@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function SecondaryButton({
+export default function SecondaryNavButton({
     className,
     href,
     children,

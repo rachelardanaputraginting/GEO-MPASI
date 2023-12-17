@@ -1,7 +1,7 @@
 import Container from "@/Components/Container";
 
 import Hero from "@/Components/Fragment/Hero";
-import PrimaryButton from "@/Components/NavButton/PrimaryButton";
+import PrimaryButton from "@/Components/NavButton/PrimaryNavButton";
 import Pagination from "@/Components/Pagination";
 import Home from "@/Layouts/Home";
 import { Head, Link, router } from "@inertiajs/react";

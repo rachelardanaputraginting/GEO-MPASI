@@ -4,8 +4,8 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, router, usePage } from "@inertiajs/react";
-import SecondaryButton from "@/Components/NavButton/SecondaryButton";
-import PrimaryButton from "@/Components/NavButton/PrimaryButton";
+import SecondaryNavButton from "@/Components/NavButton/SecondaryNavButton";
+import PrimaryNavButton from "@/Components/NavButton/PrimaryNavButton";
 
 export default function NavbarAdmin() {
     const { auth } = usePage().props;
@@ -107,12 +107,12 @@ export default function NavbarAdmin() {
                             </Dropdown>
                         ) : (
                             <div className="flex gap-x-2">
-                                <SecondaryButton href={route("register")}>
+                                <SecondaryNavButton href={route("register")}>
                                     Daftar
-                                </SecondaryButton>
-                                <PrimaryButton href={route("login")}>
+                                </SecondaryNavButton>
+                                <PrimaryNavButton href={route("login")}>
                                     Masuk
-                                </PrimaryButton>
+                                </PrimaryNavButton>
                             </div>
                         )}
                     </div>
