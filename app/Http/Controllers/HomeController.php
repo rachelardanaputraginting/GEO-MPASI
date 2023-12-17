@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Admin\ArticleResource;
+use App\Http\Resources\Admin\GroceryResource;
 use App\Models\Article;
+use App\Models\Grocery;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Torann\GeoIP\Facades\GeoIP;
@@ -98,7 +100,7 @@ class HomeController extends Controller
                 ->fastPaginate(10);
         }
 
-        
+        // Get All Article
         $articles = Article::query()
             ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
             ->with([
@@ -112,7 +114,8 @@ class HomeController extends Controller
             ->get();
 
         return inertia('Home/Index', [
-            "articles" => $articles
+            "groceries" => GroceryResource::collection($groceries),
+            "articles" => $articles,
         ]);
     }
 }

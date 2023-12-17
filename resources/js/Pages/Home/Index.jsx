@@ -1,24 +1,76 @@
 import Container from "@/Components/Container";
 
 import Hero from "@/Components/Fragment/Hero";
+import GroceryDetail from "@/Components/Groceries/GroceryDetail";
 import MyModal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Table from "@/Components/Table";
 import Home from "@/Layouts/Home";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index({articles}) {
+export default function Index({ articles, ...props }) {
+    const { data: groceries, meta, links } = props.groceries;
+
+    const { data, setData } = useForm({});
+
     let [isOpen, setIsOpen] = useState(false);
 
     const [modalType, setModalType] = useState("");
 
     const [modalDetail, setModalDetail] = useState("");
 
-    function openModalDetail(productSlug, type) {
+    const [grocerySlug, setGrocerySlug] = useState("");
+
+    function openModalDetail(grocerySlug, type) {
         setIsOpen(true);
         setModalDetail("Bahan Pangan");
         setModalType(type);
+        setGrocerySlug(grocerySlug);
+        if (grocerySlug) {
+            const selectedCategory = groceries.find(
+                (grocery) => grocery.slug === grocerySlug
+            );
+
+            setGrocerySlug(grocerySlug);
+            setData({
+                slug: selectedCategory.slug,
+                name: selectedCategory.name,
+                description: selectedCategory.description,
+                water: selectedCategory.water,
+                protein: selectedCategory.protein,
+                fat: selectedCategory.fat,
+                carbohydr: selectedCategory.carbohydr,
+                dietary: selectedCategory.dietary,
+                fiber: selectedCategory.fiber,
+                alcohol: selectedCategory.alcohol,
+                pufa: selectedCategory.pufa,
+                cholesterol: selectedCategory.cholesterol,
+                vit_a: selectedCategory.vit_a,
+                carotene: selectedCategory.carotene,
+                vit_e: selectedCategory.vit_e,
+                vit_b1: selectedCategory.vit_b1,
+                vit_b2: selectedCategory.vit_b2,
+                vit_b6: selectedCategory.vit_b6,
+                total_fol_acid: selectedCategory.total_fol_acid,
+                vit_c: selectedCategory.vit_c,
+                sodium: selectedCategory.sodium,
+                potassium: selectedCategory.potassium,
+                magnessium: selectedCategory.magnessium,
+                phosphorus: selectedCategory.phosphorus,
+                iron: selectedCategory.iron,
+                zink: selectedCategory.zink,
+                picture: selectedCategory.picture,
+            });
+        } else {
+            setGrocerySlug("");
+            setData({
+                title: "",
+                category_article_id: "",
+                description: "",
+                picture: "",
+            });
+        }
     }
 
     return (
@@ -47,194 +99,62 @@ export default function Index({articles}) {
                     Bahan Pangan
                 </h4>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
-                        <div className="">
-                            <img
-                                src="/images/app/hero_home.webp"
-                                className="rounded aspect-video"
-                                alt=""
-                            />
-                        </div>
-                        <div className="py-2">
-                            <h5 className="text-2xl py-2 font-semibold text-dark">
-                                Pisang
-                            </h5>
-                            <p className="text-dark font-light tracking-wide line-clamp-3">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
-                            </p>
-                        </div>
-                        <div className="pt-3 pb-1 flex justify-between align-center">
-                            <div className="flex items-center gap-3">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="w-11 h-11 rounded-full"
-                                    alt=""
-                                />
-                                <div className="flex flex-col text-dark gap-0">
-                                    <h6 className="text-sm font-medium">
-                                        Lukman H
-                                    </h6>
-                                    <p className="font-light text-xs">
-                                        Yogyakarta
-                                    </p>
-                                </div>
-                            </div>
+                    {groceries.length > 0 ? (
+                        <>
+                            {groceries.map((grocery, index) => (
+                                <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
+                                    <div className="">
+                                        <img
+                                            src="/images/app/hero_home.webp"
+                                            className="rounded aspect-video"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="py-2">
+                                        <h5 className="text-2xl py-2 font-semibold text-dark">
+                                            {grocery.name}
+                                        </h5>
+                                        <p className="text-dark font-light tracking-wide line-clamp-3">
+                                            {grocery.description}
+                                        </p>
+                                    </div>
+                                    <div className="pt-3 pb-1 flex justify-between align-center">
+                                        <div className="flex items-center gap-3">
+                                            <img
+                                                src="/images/app/hero_home.webp"
+                                                className="w-11 h-11 rounded-full"
+                                                alt=""
+                                            />
+                                            <div className="flex flex-col text-dark gap-0">
+                                                <h6 className="text-sm font-medium">
+                                                    {grocery.user.name}
+                                                </h6>
+                                                <p className="font-light text-xs">
+                                                    {grocery.user.address}
+                                                </p>
+                                            </div>
+                                        </div>
 
-                            <div className="flex">
-                                <PrimaryButton
-                                    type="button"
-                                    onClick={() =>
-                                        openModalDetail("modal-1", "rincian")
-                                    }
-                                >
-                                    Rincian
-                                </PrimaryButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
-                        <div className="">
-                            <img
-                                src="/images/app/hero_home.webp"
-                                className="rounded aspect-video"
-                                alt=""
-                            />
-                        </div>
-                        <div className="py-2">
-                            <h5 className="text-2xl py-2 font-semibold text-dark">
-                                Pisang
-                            </h5>
-                            <p className="text-dark font-light tracking-wide line-clamp-3">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
-                            </p>
-                        </div>
-                        <div className="pt-3 pb-1 flex justify-between align-center">
-                            <div className="flex items-center gap-3">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="w-11 h-11 rounded-full"
-                                    alt=""
-                                />
-                                <div className="flex flex-col text-dark gap-0">
-                                    <h6 className="text-sm font-medium">
-                                        Lukman H
-                                    </h6>
-                                    <p className="font-light text-xs">
-                                        Yogyakarta
-                                    </p>
+                                        <div className="flex">
+                                            <PrimaryButton
+                                                type="button"
+                                                onClick={() =>
+                                                    openModalDetail(
+                                                        grocery.slug,
+                                                        "detail"
+                                                    )
+                                                }
+                                            >
+                                                Rincian
+                                            </PrimaryButton>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="flex">
-                                <PrimaryButton
-                                    type="button"
-                                    onClick={() =>
-                                        openModalDetail("modal-1", "rincian")
-                                    }
-                                >
-                                    Rincian
-                                </PrimaryButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
-                        <div className="">
-                            <img
-                                src="/images/app/hero_home.webp"
-                                className="rounded aspect-video"
-                                alt=""
-                            />
-                        </div>
-                        <div className="py-2">
-                            <h5 className="text-2xl py-2 font-semibold text-dark">
-                                Pisang
-                            </h5>
-                            <p className="text-dark font-light tracking-wide line-clamp-3">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
-                            </p>
-                        </div>
-                        <div className="pt-3 pb-1 flex justify-between align-center">
-                            <div className="flex items-center gap-3">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="w-11 h-11 rounded-full"
-                                    alt=""
-                                />
-                                <div className="flex flex-col text-dark gap-0">
-                                    <h6 className="text-sm font-medium">
-                                        Lukman H
-                                    </h6>
-                                    <p className="font-light text-xs">
-                                        Yogyakarta
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex">
-                                <PrimaryButton
-                                    type="button"
-                                    onClick={() =>
-                                        openModalDetail("modal-1", "rincian")
-                                    }
-                                >
-                                    Rincian
-                                </PrimaryButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
-                        <div className="">
-                            <img
-                                src="/images/app/hero_home.webp"
-                                className="rounded aspect-video"
-                                alt=""
-                            />
-                        </div>
-                        <div className="py-2">
-                            <h5 className="text-2xl py-2 font-semibold text-dark">
-                                Pisang
-                            </h5>
-                            <p className="text-dark font-light tracking-wide line-clamp-3">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
-                            </p>
-                        </div>
-                        <div className="pt-3 pb-1 flex justify-between align-center">
-                            <div className="flex items-center gap-3">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="w-11 h-11 rounded-full"
-                                    alt=""
-                                />
-                                <div className="flex flex-col text-dark gap-0">
-                                    <h6 className="text-sm font-medium">
-                                        Lukman H
-                                    </h6>
-                                    <p className="font-light text-xs">
-                                        Yogyakarta
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex">
-                                <PrimaryButton
-                                    type="button"
-                                    onClick={() =>
-                                        openModalDetail("modal-1", "rincian")
-                                    }
-                                >
-                                    Rincian
-                                </PrimaryButton>
-                            </div>
-                        </div>
-                    </div>
+                            ))}
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </Container>
             {/* Bahan Pangan End */}
@@ -330,41 +250,7 @@ export default function Index({articles}) {
                 type={modalType}
                 title={modalDetail}
             >
-                <div className="flex flex-wrap md:flex-nowrap mt-8 justify-between gap-4 items-start">
-                    <div className="w-full md:w-1/2 lg:w-1/2">
-                        <img
-                            src="/images/app/hero_home.webp"
-                            alt=""
-                            className="rounded"
-                        />
-                    </div>
-                    <div className="w-full md:w-1/2 lg:w-1/2">
-                        <div>
-                            <h5 className="text-2xl md:text-3xl py-2 text-dark font-semibold">
-                                Pisang
-                            </h5>
-                            <p className="text-dark font-light text-lg tracking-wide line-clamp-3">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
-                            </p>
-                        </div>
-                        <div className="mt-4 space-y-3">
-                            <ul className="flex justify-between">
-                                <li className="">Protein</li>
-                                <li className="font-bold">10%</li>
-                            </ul>
-                            <ul className="flex justify-between">
-                                <li className="">Karbohidrat</li>
-                                <li className="font-bold">17%</li>
-                            </ul>
-                            <ul className="flex justify-between">
-                                <li className="">Magnesium</li>
-                                <li className="font-bold">40%</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <GroceryDetail {...{ data }} />
             </MyModal>
         </>
     );
