@@ -19,38 +19,100 @@ class HomeController extends Controller
 
         $geolocation = "The IP address $request->ipinfo->country.";
 
-        // dd($geolocation);
+        $search_groceries = $request->input('search');
 
-        $search_articles = $request->input('search');
-
-        if ($search_articles) {
-            $articles = Article::query()
-                ->where('title', 'LIKE', "%$search_articles%")
-                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
+        if ($search_groceries) {
+            $groceries = Grocery::query()
+                ->where('name', 'LIKE', "%$search_groceries%")
+                ->select(
+                    'user_id',
+                    'slug',
+                    'name',
+                    'description',
+                    'water',
+                    'protein',
+                    'fat',
+                    'carbohydr',
+                    'dietary',
+                    'fiber',
+                    'alcohol',
+                    'pufa',
+                    'cholesterol',
+                    'vit_a',
+                    'carotene',
+                    'vit_e',
+                    'vit_b1',
+                    'vit_b2',
+                    'vit_b6',
+                    'total_fol_acid',
+                    'vit_c',
+                    'sodium',
+                    'potassium',
+                    'magnessium',
+                    'phosphorus',
+                    'iron',
+                    'zink',
+                    'picture'
+                )
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
-                ])
-                ->with([
-                    "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
                 ->fastPaginate(10)->withQueryString();
         } else {
-            $articles = Article::query()
-                ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
+            $groceries = Grocery::query()
+                ->select(
+                    'user_id',
+                    'slug',
+                    'name',
+                    'description',
+                    'water',
+                    'protein',
+                    'fat',
+                    'carbohydr',
+                    'dietary',
+                    'fiber',
+                    'alcohol',
+                    'pufa',
+                    'cholesterol',
+                    'vit_a',
+                    'carotene',
+                    'vit_e',
+                    'vit_b1',
+                    'vit_b2',
+                    'vit_b6',
+                    'total_fol_acid',
+                    'vit_c',
+                    'sodium',
+                    'potassium',
+                    'magnessium',
+                    'phosphorus',
+                    'iron',
+                    'zink',
+                    'picture'
+                )
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
-                ])
-                ->with([
-                    "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
                 ])
                 ->latest()
                 ->fastPaginate(10);
         }
 
+        
+        $articles = Article::query()
+            ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
+            ->with([
+                "user" => fn ($query) => $query->select('name', 'username', 'id'),
+            ])
+            ->with([
+                "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),
+            ])
+            ->latest()
+            ->limit(10)
+            ->get();
 
         return inertia('Home/Index', [
-            "articles" => ArticleResource::collection($articles),
+            "articles" => $articles
         ]);
     }
 }

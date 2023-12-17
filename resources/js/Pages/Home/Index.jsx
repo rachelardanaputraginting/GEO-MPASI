@@ -8,7 +8,7 @@ import Home from "@/Layouts/Home";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index() {
+export default function Index({articles}) {
     let [isOpen, setIsOpen] = useState(false);
 
     const [modalType, setModalType] = useState("");
@@ -246,7 +246,7 @@ export default function Index() {
                 </h4>
                 <div className="flex w-full flex-wrap sm:flex-nowrap items-center gap-4">
                     <div className="w-full sm:shadow sm:w-[550px] sm:h-[427px] bg-primary rounded p-8 justify-center gap-4 flex justify-between flex-col">
-                        <div className="pt-20 w-auto space-y-4">
+                        <div className="pt-20 w-auto space-y-4 sm:w-[350px] sm:h-[380px]">
                             <h3 className="font-bold text-secondary text-2xl">
                                 Jelajahi
                             </h3>
@@ -263,174 +263,61 @@ export default function Index() {
                         </div>
                     </div>
                     <div className="w-min scrolling-wrapper h-[420px] gap-4 flex overflow-scroll">
-                        <div className="border w-[383px] h-[420px] p-[12px] rounded border-fifth">
-                            <div className="w-[358px]">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="flex w-[358px] h-[180px] rounded"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-dark">
-                                    Pisang
-                                </h5>
-                                <p className="text-dark font-light tracking-wide line-clamp-3">
-                                    Pisang adalah nama umum yang diberikan pada
-                                    tumbuhan terna berukuran besar dengan daun
-                                    memanjang dan besar
-                                </p>
-                            </div>
-                            <div className="pt-3 pb-1 flex justify-between align-center">
-                                <div className="flex items-center gap-3">
-                                    <img
-                                        src="/images/app/hero_home.webp"
-                                        className="w-11 h-11 rounded-full"
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col text-dark gap-0">
-                                        <h6 className="text-sm font-medium">
-                                            Lukman H
-                                        </h6>
-                                        <p className="font-light text-xs">
-                                            Yogyakarta
-                                        </p>
-                                    </div>
-                                </div>
+                        {articles.length > 0 ? (
+                            <>
+                                {articles.map((article, index) => (
+                                    <div
+                                        className="border w-[383px] h-[420px] p-[12px] rounded border-fifth"
+                                        key={index}
+                                    >
+                                        <div className="w-[358px]">
+                                            <img
+                                                src={
+                                                    article.picture
+                                                        ? `/storage/${article.picture}`
+                                                        : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                                }
+                                                className="flex w-[358px] h-[180px] rounded"
+                                                alt={article.name}
+                                            />
+                                        </div>
+                                        <div className="py-2">
+                                            <h5 className="text-2xl py-2 font-semibold text-dark">
+                                                {article.judul}
+                                            </h5>
+                                            <p className="text-dark font-light tracking-wide line-clamp-5">
+                                                {article.description}
+                                            </p>
+                                        </div>
+                                        <div className="pt-3 pb-1 flex justify-between flex-end">
+                                            <div className="flex items-center gap-3">
+                                                <img
+                                                    src="/images/app/hero_home.webp"
+                                                    className="w-11 h-11 rounded-full"
+                                                    alt=""
+                                                />
+                                                <div className="flex flex-col text-dark gap-0">
+                                                    <h6 className="text-sm font-medium">
+                                                        Lukman H
+                                                    </h6>
+                                                    <p className="font-light text-xs">
+                                                        Yogyakarta
+                                                    </p>
+                                                </div>
+                                            </div>
 
-                                <div className="flex">
-                                    <PrimaryButton type="submit">
-                                        Rincian
-                                    </PrimaryButton>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border w-[383px] h-[420px] p-[12px] rounded border-fifth">
-                            <div className="w-[358px]">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="flex w-[358px] h-[180px] rounded"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-dark">
-                                    Pisang
-                                </h5>
-                                <p className="text-dark font-light tracking-wide line-clamp-3">
-                                    Pisang adalah nama umum yang diberikan pada
-                                    tumbuhan terna berukuran besar dengan daun
-                                    memanjang dan besar
-                                </p>
-                            </div>
-                            <div className="pt-3 pb-1 flex justify-between align-center">
-                                <div className="flex items-center gap-3">
-                                    <img
-                                        src="/images/app/hero_home.webp"
-                                        className="w-11 h-11 rounded-full"
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col text-dark gap-0">
-                                        <h6 className="text-sm font-medium">
-                                            Lukman H
-                                        </h6>
-                                        <p className="font-light text-xs">
-                                            Yogyakarta
-                                        </p>
+                                            <div className="flex">
+                                                <PrimaryButton type="submit">
+                                                    Rincian
+                                                </PrimaryButton>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="flex">
-                                    <PrimaryButton type="submit">
-                                        Rincian
-                                    </PrimaryButton>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border w-[383px] h-[420px] p-[12px] rounded border-fifth">
-                            <div className="w-[358px]">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="flex w-[358px] h-[180px] rounded"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-dark">
-                                    Pisang
-                                </h5>
-                                <p className="text-dark font-light tracking-wide line-clamp-3">
-                                    Pisang adalah nama umum yang diberikan pada
-                                    tumbuhan terna berukuran besar dengan daun
-                                    memanjang dan besar
-                                </p>
-                            </div>
-                            <div className="pt-3 pb-1 flex justify-between align-center">
-                                <div className="flex items-center gap-3">
-                                    <img
-                                        src="/images/app/hero_home.webp"
-                                        className="w-11 h-11 rounded-full"
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col text-dark gap-0">
-                                        <h6 className="text-sm font-medium">
-                                            Lukman H
-                                        </h6>
-                                        <p className="font-light text-xs">
-                                            Yogyakarta
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-                                    <PrimaryButton type="submit">
-                                        Rincian
-                                    </PrimaryButton>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border w-[383px] h-[420px] p-[12px] rounded border-fifth">
-                            <div className="w-[358px]">
-                                <img
-                                    src="/images/app/hero_home.webp"
-                                    className="flex w-[358px] h-[180px] rounded"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-dark">
-                                    Pisang
-                                </h5>
-                                <p className="text-dark font-light tracking-wide line-clamp-3">
-                                    Pisang adalah nama umum yang diberikan pada
-                                    tumbuhan terna berukuran besar dengan daun
-                                    memanjang dan besar
-                                </p>
-                            </div>
-                            <div className="pt-3 pb-1 flex justify-between align-center">
-                                <div className="flex items-center gap-3">
-                                    <img
-                                        src="/images/app/hero_home.webp"
-                                        className="w-11 h-11 rounded-full"
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col text-dark gap-0">
-                                        <h6 className="text-sm font-medium">
-                                            Lukman H
-                                        </h6>
-                                        <p className="font-light text-xs">
-                                            Yogyakarta
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-                                    <PrimaryButton type="submit">
-                                        Rincian
-                                    </PrimaryButton>
-                                </div>
-                            </div>
-                        </div>
+                                ))}
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
             </Container>

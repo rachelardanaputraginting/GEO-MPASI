@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $search_articles = $request->input('search');
 
         if ($search_articles) {
@@ -42,13 +43,12 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function show(Article $article){
+    public function show(Article $article)
+    {
         $article = Article::where('slug', $article->slug)->with('user')->first();
 
         return inertia('Article/Show', [
             "article" => $article
         ]);
     }
-
-    
 }
