@@ -3,7 +3,8 @@ import Container from "@/Components/Container";
 import Hero from "@/Components/Fragment/Hero";
 import GroceryDetail from "@/Components/Groceries/GroceryDetail";
 import MyModal from "@/Components/Modal";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/NavButton/PrimaryButton";
+import NavLink from "@/Components/NavLink";
 import Table from "@/Components/Table";
 import Home from "@/Layouts/Home";
 import { Head, useForm } from "@inertiajs/react";
@@ -171,13 +172,12 @@ export default function Index({ articles, ...props }) {
                                 Jelajahi
                             </h3>
                             <p className="text-white tracking-wide">
-                                Pisang adalah nama umum yang diberikan pada
-                                tumbuhan terna berukuran besar dengan daun
-                                memanjang dan besar
+                                Menjaga Pertumbuhan Optimal Anak: Mengenal
+                                Metode Pencegahan Growth Faltering
                             </p>
                         </div>
                         <div className="flex justify-end items-end">
-                            <PrimaryButton type="submit">
+                            <PrimaryButton href={route("article.index")}>
                                 Selengkapnya
                             </PrimaryButton>
                         </div>
@@ -218,16 +218,21 @@ export default function Index({ articles, ...props }) {
                                                 />
                                                 <div className="flex flex-col text-dark gap-0">
                                                     <h6 className="text-sm font-medium">
-                                                        Lukman H
+                                                        {article.user.name}
                                                     </h6>
                                                     <p className="font-light text-xs">
-                                                        Yogyakarta
+                                                        {article.user.address}
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div className="flex">
-                                                <PrimaryButton type="submit">
+                                                <PrimaryButton
+                                                    PrimaryButton
+                                                    href={route(
+                                                        "article.show", article.slug
+                                                    )}
+                                                >
                                                     Rincian
                                                 </PrimaryButton>
                                             </div>
