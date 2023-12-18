@@ -24,7 +24,6 @@ export default function Index({ total_groceries, ...props }) {
 
     const {
         delete: destroy,
-        post,
         put,
         data,
         setData,

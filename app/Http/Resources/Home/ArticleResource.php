@@ -22,7 +22,7 @@ class ArticleResource extends JsonResource
             "title" => $this->title,
             "slug" => $this->slug,
             "created_at" => Carbon::parse($this->created_at)->locale('id')->formatLocalized('%A, %d %B %Y'),
-            'category_article' => [
+            'category_article' => [ 
                 'id' => $this->category_article->id,
                 'name' => $this->category_article->name,
                 'slug' => $this->category_article->slug,

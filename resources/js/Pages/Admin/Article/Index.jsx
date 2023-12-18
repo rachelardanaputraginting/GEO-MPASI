@@ -11,7 +11,7 @@ import Table from "@/Components/Table";
 import TextInput from "@/Components/TextInput";
 import Toast from "@/Components/Toast";
 import App from "@/Layouts/App";
-import { Head, useForm, router, Link } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import { IconArrowLeft, IconEye } from "@tabler/icons-react";
 import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 import React, { useState } from "react";
@@ -28,6 +28,7 @@ export default function Index({
 
     const {
         delete: destroy,
+        post,
         put,
         data,
         setData,
@@ -59,10 +60,11 @@ export default function Index({
             const selectedCategory = articles.find(
                 (article) => article.slug === articleSlug
             );
+
             setArticleSlug(articleSlug);
             setData({
                 title: selectedCategory.title,
-                category_article_id: selectedCategory.category_article_id.id,
+                category_article_id: selectedCategory.category_article,
                 description: selectedCategory.description,
                 description_full: selectedCategory.description_full,
                 picture: selectedCategory.picture,
@@ -118,12 +120,20 @@ export default function Index({
 
     const onUpdate = (articleSlug) => (e) => {
         e.preventDefault();
-        put(route("admin.articles.update", articleSlug), {
-            ...data,
-            onSuccess: () => {
-                toast.success("Artikel Berhasil Diubah!"), setIsOpen(false);
-            },
-        });
+         router.post(
+             `/admin/article/${articleSlug}`,
+             {
+                 _method: "put",
+                 ...data,
+                 category_article_id: data.category_article_id.id,
+             },
+             {
+                 onSuccess: () => {
+                     toast.success("Artikel Berhasil Diubah!"),
+                         setIsOpen(false);
+                 },
+             }
+         );
     };
 
     const onDelete = (articleSlug) => {
@@ -289,12 +299,12 @@ export default function Index({
                     type={modalType}
                     title={modalArticle}
                 >
-                    {/* {modalType == "detail" ? (
+                    {modalType == "detail" ? (
                         <>
                             <ArticleDetail {...{ data }} />
                         </>
                     ) : (
-                        <> */}
+                        <>
                             <form
                                 onSubmit={
                                     modalType == "create"
@@ -317,8 +327,8 @@ export default function Index({
                                     </PrimaryButton>
                                 </div>
                             </form>
-                        {/* </>
-                    )} */}
+                        </>
+                    )}
                 </MyModal>
 
                 {/* Toast */}
