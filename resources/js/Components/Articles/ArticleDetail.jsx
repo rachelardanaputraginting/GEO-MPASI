@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function ArticleDetail({ data, setData }) {
+
     return (
         <div className="flex flex-wrap mt-8 justify-between gap-4 items-start">
             <div className="w-full">

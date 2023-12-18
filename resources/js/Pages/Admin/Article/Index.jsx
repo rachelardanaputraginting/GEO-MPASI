@@ -28,7 +28,6 @@ export default function Index({
 
     const {
         delete: destroy,
-        post,
         put,
         data,
         setData,
@@ -60,11 +59,10 @@ export default function Index({
             const selectedCategory = articles.find(
                 (article) => article.slug === articleSlug
             );
-
             setArticleSlug(articleSlug);
             setData({
                 title: selectedCategory.title,
-                category_article_id: selectedCategory.category_article_id,
+                category_article_id: selectedCategory.category_article_id.id,
                 description: selectedCategory.description,
                 description_full: selectedCategory.description_full,
                 picture: selectedCategory.picture,
@@ -291,12 +289,12 @@ export default function Index({
                     type={modalType}
                     title={modalArticle}
                 >
-                    {modalType == "detail" ? (
+                    {/* {modalType == "detail" ? (
                         <>
                             <ArticleDetail {...{ data }} />
                         </>
                     ) : (
-                        <>
+                        <> */}
                             <form
                                 onSubmit={
                                     modalType == "create"
@@ -319,8 +317,8 @@ export default function Index({
                                     </PrimaryButton>
                                 </div>
                             </form>
-                        </>
-                    )}
+                        {/* </>
+                    )} */}
                 </MyModal>
 
                 {/* Toast */}

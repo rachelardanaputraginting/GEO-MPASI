@@ -45,7 +45,6 @@ class ArticleController extends Controller
                 ->fastPaginate(10);
         }
 
-
         return inertia('Admin/Article/Index', [
             "articles" => ArticleResource::collection($articles),
             "total_category_articles" => $total_category_articles,

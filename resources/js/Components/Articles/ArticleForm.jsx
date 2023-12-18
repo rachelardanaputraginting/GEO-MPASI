@@ -8,6 +8,7 @@ import Select from "../Select";
 import InputFile from "../InputFIle";
 
 export default function ArticleForm({ data, setData }) {
+
     const { errors, category_articles } = usePage().props;
 
     const onChange = (e) => {
