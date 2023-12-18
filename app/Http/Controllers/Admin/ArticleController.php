@@ -80,6 +80,19 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
+
+        $picture = $request->file('picture');
+
+        $article->update([
+            "title" => $request->title ? $request->title : $article->title,
+            "slug" => $slug = str($request->title . '-' .  rand(10, 100))->slug(),
+            "user_id" => Auth::id(),
+            "category_article_id" => $request->category_article_id ? $request->category_article_id : $article->category_article_id,
+            "description" => $request->description ? $request->description : $article->description,
+            "picture" => $request->hasFile('picture') ? $picture->storeAs('images/articles', $slug . '.' . $picture->extension()) : $article->picture
+        ]);
+
+        return back();
     }
 
     /**

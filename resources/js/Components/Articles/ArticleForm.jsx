@@ -8,7 +8,6 @@ import Select from "../Select";
 import InputFile from "../InputFIle";
 
 export default function ArticleForm({ data, setData }) {
-
     const { errors, category_articles } = usePage().props;
 
     const onChange = (e) => {
@@ -29,7 +28,7 @@ export default function ArticleForm({ data, setData }) {
                 ) : null}
             </div>
             <div className="mb-4">
-                <InputLabel htmlFor="title" value="Name" />
+                <InputLabel htmlFor="title" value="Title" />
                 <TextInput
                     name="title"
                     id="title"
