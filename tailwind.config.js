@@ -18,7 +18,8 @@ export default {
             fourth: "#FFD700",
             fifth: "#C2C2C2",
             white: "#FFFFFF",
-            dark: "#333333",
+            dark: "#1e293b",
+            danger: "##ef4444",
         },
         extend: {
             fontFamily: {

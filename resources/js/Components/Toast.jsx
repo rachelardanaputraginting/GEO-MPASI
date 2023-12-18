@@ -33,13 +33,13 @@ export default function MyModal({isToast, name, onClose, title, children}) {
                                 <Dialog.Panel className={`w-full max-w-sm transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all`}>
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-center mt-5 text-slate-700 leading-6 mb-5 mt-4 text-gray-700"
+                                        className="text-center mt-5 text-dark leading-6 mb-5 mt-4 text-gray-700"
                                     >
                                         <p className='font-medium text-lg'>{name}</p>
 
-                                        <p className='font-normal text-slate-500'>{name ? `Are you sure ${title} is finished?` : `Are you sure want to delete ${title}`}  </p>
+                                        <p className='font-normal text-dark'>{name ? `Are you sure ${title} is finished?` : `Are you sure want to delete ${title}`}  </p>
                                     </Dialog.Title>
-                                        <button className='absolute right-2 top-2 py-2 px-2 bg-transparent text-slate-500' onClick={onClose}><IconX /></button>
+                                        <button className='absolute right-2 top-2 py-2 px-2 bg-transparent text-dark' onClick={onClose}><IconX /></button>
                                     <div className="mt-2">
                                         {children}
                                     </div>

@@ -49,6 +49,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Groceries
     Route::controller(GroceryController::class)->group(function () {
         Route::get('/grocery', 'index')->name('admin.groceries.index');
+        Route::post('/grocery', 'store')->name('admin.groceries.store');
         Route::delete('/grocery/{grocery:slug}', 'destroy')->name('admin.groceries.destroy');
     });
 

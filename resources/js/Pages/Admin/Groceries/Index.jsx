@@ -24,6 +24,7 @@ export default function Index({ total_groceries, ...props }) {
 
     const {
         delete: destroy,
+        post,
         put,
         data,
         setData,
@@ -165,15 +166,38 @@ export default function Index({ total_groceries, ...props }) {
             `/admin/grocery`,
             {
                 ...data,
-                category_article_id: data.category_article_id.id,
             },
             {
                 onSuccess: () => {
                     setIsOpen(false),
                         setData({
-                            title: "",
-                            category_article_id: "",
+                            user_id: "",
+                            slug: "",
+                            name: "",
                             description: "",
+                            water: "",
+                            protein: "",
+                            fat: "",
+                            carbohydr: "",
+                            dietary: "",
+                            fiber: "",
+                            alcohol: "",
+                            pufa: "",
+                            cholesterol: "",
+                            vit_a: "",
+                            carotene: "",
+                            vit_e: "",
+                            vit_b1: "",
+                            vit_b2: "",
+                            vit_b6: "",
+                            total_fol_acid: "",
+                            vit_c: "",
+                            sodium: "",
+                            potassium: "",
+                            magnessium: "",
+                            phosphorus: "",
+                            iron: "",
+                            zink: "",
                             picture: "",
                         }),
                         toast.success("Bahan Pangan Berhasil Ditambahkan!");
@@ -217,11 +241,11 @@ export default function Index({ total_groceries, ...props }) {
     };
     return (
         <>
-            <Head title="Articles" />
+            <Head title="Groceries" />
             <Container>
                 {/* Start Articles */}
                 <h3 className="text-2xl mt-10 mb-4 font-semibold text-dark">
-                    Articles
+                    Groceries
                 </h3>
                 <div className="flex justify-between gap-2 w-full item-center my-2">
                     <div className="flex gap-2">

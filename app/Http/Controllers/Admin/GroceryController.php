@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\GroceryResource;
 use App\Models\Grocery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class GroceryController extends Controller
@@ -103,49 +104,55 @@ class GroceryController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $picture = $request->file('picture');
+
+        Grocery::create([
+            "name" => $request->name,
+            "slug" => $slug = str($request->title . '-' .  rand(10, 100))->slug(),
+            "user_id" => Auth::id(),
+            "description" => $request->description,
+            "water" => $request->water,
+            "protein" => $request->protein,
+            "fat" => $request->fat,
+            "carbohydr" => $request->carbohydr,
+            "dietary" => $request->dietary,
+            "fiber" => $request->fiber,
+            "alcohol" => $request->alcohol,
+            "pufa" => $request->pufa,
+            "cholesterol" => $request->cholesterol,
+            "vit_a" => $request->vit_a,
+            "carotene" => $request->carotene,
+            "vit_e" => $request->vit_e,
+            "vit_b1" => $request->vit_b1,
+            "vit_b2" => $request->vit_b2,
+            "vit_b6" => $request->vit_b6,
+            "total_fol_acid" => $request->total_fol_acid,
+            "vit_c" => $request->vit_c,
+            "sodium" => $request->sodium,
+            "potassium" => $request->potassium,
+            "magnessium" => $request->magnessium,
+            "phosphorus" => $request->phosphorus,
+            "iron" => $request->iron,
+            "zink" => $request->zink,
+            "picture" => $request->hasFile('picture') ? $picture->storeAs('images/articles', $slug . '.' . $picture->extension()) : null
+        ]);
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Grocery $grocery)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Grocery $grocery)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Grocery $grocery)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Grocery $grocery)
     {
         if ($grocery->picture) {

@@ -33,7 +33,7 @@ export default function MyModal({ isOpen, onClose, size, title, children, type }
                                 <Dialog.Panel className={`w-full sm:w-${size} transform overflow-hidden rounded bg-white mt-16 p-6 text-left align-middle shadow-xl transition-all`}>
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg text-slate-700 font-medium leading-6 mt-4 text-gray-700"
+                                        className="text-lg text-dark font-medium leading-6 mt-4 text-dark"
                                     >
                                         {`${type === "rincian" ? "" : "Form"}`} {type == "create" ? "Create" : type === "delete" ? "Delete" : type === "edit" ? "Edit" : "Rincian"} {title}
                                     </Dialog.Title>
