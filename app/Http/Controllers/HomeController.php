@@ -18,14 +18,23 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         // Dapatkan alamat IP dari klien
+        // $IP = $request->ip();
+        $IP = '114.10.86.218';
+        $ch = curl_init('https://ipinfo.io/' . $IP . '?token=6a361148f6ea47');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // execute!
+        $response = curl_exec($ch);
+        $result = json_decode($response);
+        $city = $result->city;
 
-        $geolocation = "The IP address $request->ipinfo->country.";
+        // Semua Kota di Indonesia
+        $cities = \Indonesia::allCities();
 
-        $search_groceries = $request->input('search');
+        $search_location = $request->input('search');
 
-        if ($search_groceries) {
+
+        if ($search_location) {
             $groceries = Grocery::query()
-                ->where('name', 'LIKE', "%$search_groceries%")
                 ->select(
                     'user_id',
                     'slug',
@@ -59,6 +68,15 @@ class HomeController extends Controller
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
                 ])
+                ->with([
+                    "indonesia_city" => fn ($query) => $query->select('name', 'id'),
+                ])
+                ->whereHas('indonesia_city', function ($query) use ($city) {
+                    $query->where('name', 'LIKE', "%$city%");
+                })
+                ->orWhereHas('indonesia_city', function ($query) use ($search_location) {
+                    $query->where('name', 'LIKE', "%$search_location%");
+                })
                 ->latest()
                 ->fastPaginate(10)->withQueryString();
         } else {
@@ -96,6 +114,12 @@ class HomeController extends Controller
                 ->with([
                     "user" => fn ($query) => $query->select('name', 'username', 'id'),
                 ])
+                ->with([
+                    "indonesia_city" => fn ($query) => $query->select('name', 'id'),
+                ])
+                ->whereHas('indonesia_city', function ($query) use ($city) {
+                    $query->where('name', 'LIKE', "%$city%");
+                })
                 ->latest()
                 ->fastPaginate(10);
         }
@@ -116,6 +140,8 @@ class HomeController extends Controller
         return inertia('Home/Index', [
             "groceries" => GroceryResource::collection($groceries),
             "articles" => $articles,
+            "cities" => $cities,
+            "city" => $city,
         ]);
     }
 }

@@ -1,18 +1,19 @@
 import Container from "@/Components/Container";
-
-import Hero from "@/Components/Fragment/Hero";
 import GroceryDetail from "@/Components/Groceries/GroceryDetail";
 import MyModal from "@/Components/Modal";
 import PrimaryNavButton from "@/Components/NavButton/PrimaryNavButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Home from "@/Layouts/Home";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 import { useState } from "react";
+import Select from "react-select";
 
-export default function Index({ articles, ...props }) {
+export default function Index({ articles, cities, city, ...props }) {
     const { data: groceries, meta, links } = props.groceries;
 
     const { data, setData } = useForm({});
+
+    const [searchQuery, setSearchQuery] = useState("");
 
     let [isOpen, setIsOpen] = useState(false);
 
@@ -73,23 +74,79 @@ export default function Index({ articles, ...props }) {
         }
     }
 
+    const [selectedCity, setSelectedCity] = useState(null);
+
+    const handleCityChange = (selectedOption) => {
+        setSelectedCity(selectedOption);
+          handleSearch(selectedOption);
+    };
+
+    const handleSearch = (selectedOption) => {
+        setSearchQuery(selectedOption);
+
+        router.get(
+            `/`,
+            {
+                search: selectedOption ? selectedOption.label : "",
+            },
+            {
+                preserveState: true,
+            }
+        );
+    };
+
     return (
         <>
             <Head title="Beranda" />
 
             {/* Hero Start */}
             <Container>
-                <Hero>
-                    <Hero.HeroLeft
-                        title="GEO-MPASI"
-                        subtitle="Mari bersama-sama mencegah Growth Faltering di Indonesia"
-                        text="Location:"
-                        location="Yogyakarta"
-                        placeholder="Masukkan Lokasi Anda"
-                        type="search"
-                    ></Hero.HeroLeft>
-                    <Hero.HeroRight></Hero.HeroRight>
-                </Hero>
+                <div className="flex flex-wrap w-full mt-12 justify-between">
+                    <div className="w-full md:w-2/3 order-2 md:order-1">
+                        <div className="w-full md:pr-8 h-full flex justify-between flex-col">
+                            <div className="flex flex-col mt-16">
+                                <h1
+                                    className="text-secondary font-bold sm:text-4xl md:text-5xl"
+                                    GEO-MPASI
+                                >
+                                    GEO-MPASI
+                                </h1>
+                                <p className="font-medium text-dark text-xl md:text-2xl">
+                                    Mari bersama-sama mencegah Growth Faltering
+                                    di Indonesia
+                                </p>
+                            </div>
+                            <div className="md:pr-8 mt-8 md:mt-0">
+                                <h6 className="text-dark mb-2">
+                                    {`Lokasi : `}{" "}
+                                    <span className="font-semibold">
+                                        {" "}
+                                        {selectedCity
+                                            ? selectedCity.label
+                                            : city}
+                                    </span>
+                                </h6>
+                                <Select
+                                    options={cities.map((city) => ({
+                                        value: city.id,
+                                        label: city.name,
+                                    }))}
+                                    value={selectedCity}
+                                    onChange={handleCityChange}
+                                    name="indonesia_city_id"
+                                    className="border-fifth bg-third text-dark focus:text-dark focus:border-fifth border-1 focus:ring-fifth focus:bg-white rounded-md"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full order-1 md:order-2 md:w-1/3 h-full">
+                        <img
+                            src="images/app/hero_home.webp"
+                            className="rounded h-full w-full"
+                            alt=""
+                        />
+                    </div>
+                </div>
             </Container>
             {/* Hero End */}
 
@@ -229,7 +286,8 @@ export default function Index({ articles, ...props }) {
                                                 <PrimaryButton
                                                     PrimaryButton
                                                     href={route(
-                                                        "article.show", article.slug
+                                                        "article.show",
+                                                        article.slug
                                                     )}
                                                 >
                                                     Rincian
