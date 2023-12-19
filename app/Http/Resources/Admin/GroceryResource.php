@@ -22,6 +22,10 @@ class GroceryResource extends JsonResource
                 'name' => $this->user->name,
                 'username' => $this->user->username,
             ],
+            'indonesia_city' => $this->whenLoaded('indonesia_city', fn () => [
+                'id' => $this->indonesia_city->id,
+                'name' => $this->indonesia_city->name,
+            ]),
             'name' => $this->name,
             'slug' => $this->slug,
             "description" => Str::limit($this->description, 200, ' ...'),

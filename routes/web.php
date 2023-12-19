@@ -50,6 +50,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::controller(GroceryController::class)->group(function () {
         Route::get('/grocery', 'index')->name('admin.groceries.index');
         Route::post('/grocery', 'store')->name('admin.groceries.store');
+        Route::put('/grocery/{grocery:slug}', 'update')->name('admin.groceries.update');
         Route::delete('/grocery/{grocery:slug}', 'destroy')->name('admin.groceries.destroy');
     });
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('groceries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('indonesia_city_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');

@@ -4,16 +4,17 @@ import Error from "../Error";
 import { usePage } from "@inertiajs/react";
 import TextInput from "../TextInput";
 import Textarea from "../Textarea";
-import Select from "../Select";
 import InputFile from "../InputFIle";
 import InputLabelBottom from "../InputLabel copy";
+import Select from "react-select";
 
 export default function GroceryForm({ data, setData }) {
-    const { errors, category_articles } = usePage().props;
+    const { errors, cities } = usePage().props;
 
     const onChange = (e) => {
         setData(e.target.name, e.target.value);
     };
+
     return (
         <>
             <div className="mb-6">
@@ -53,6 +54,23 @@ export default function GroceryForm({ data, setData }) {
                 />
                 {errors.description ? (
                     <Error className="" value={errors.description} />
+                ) : null}
+            </div>
+            <div className="mb-4">
+                <InputLabel htmlFor="indonesia_city_id" value={`Propinsi : ${data.indonesia_city_id.name}`} />
+                <Select
+                    options={cities.map((city) => ({
+                        value: city.id,
+                        label: city.name,
+                    }))}
+                    onChange={(selectedOption) =>
+                        setData("city_id", selectedOption.value)
+                    }
+                    name="indonesia_city_id"
+                    className="border-fifth bg-third text-dark focus:text-dark focus:border-fifth border-1 focus:ring-fifth focus:bg-white rounded-md"
+                />
+                {errors.city_id ? (
+                    <Error className="" value={errors.city_id} />
                 ) : null}
             </div>
             <div className="mb-4">

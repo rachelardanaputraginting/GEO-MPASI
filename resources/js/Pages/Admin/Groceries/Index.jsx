@@ -33,6 +33,7 @@ export default function Index({ total_groceries, ...props }) {
         slug: "",
         name: "",
         description: "",
+        indonesia_city_id: "",
         water: "",
         protein: "",
         fat: "",
@@ -86,6 +87,7 @@ export default function Index({ total_groceries, ...props }) {
                 slug: selectedGrocery.slug,
                 name: selectedGrocery.name,
                 description: selectedGrocery.description,
+                indonesia_city_id: selectedGrocery.indonesia_city,
                 water: selectedGrocery.water,
                 protein: selectedGrocery.protein,
                 fat: selectedGrocery.fat,
@@ -118,6 +120,7 @@ export default function Index({ total_groceries, ...props }) {
                 slug: "",
                 name: "",
                 description: "",
+                indonesia_city_id: "",
                 water: "",
                 protein: "",
                 fat: "",
@@ -166,6 +169,7 @@ export default function Index({ total_groceries, ...props }) {
             `/admin/grocery`,
             {
                 ...data,
+                indonesia_city_id: data.indonesia_city_id.id,
             },
             {
                 onSuccess: () => {
@@ -208,13 +212,20 @@ export default function Index({ total_groceries, ...props }) {
 
     const onUpdate = (grocerySlug) => (e) => {
         e.preventDefault();
-        put(route("admin.groceries.update", grocerySlug), {
-            ...data,
-            onSuccess: () => {
-                toast.success("Bahan Pangan Berhasil Diubah!"),
-                    setIsOpen(false);
+        router.post(
+            `/admin/grocery/${grocerySlug}`,
+            {
+                _method: "put",
+                ...data,
+                indonesia_city_id: data.indonesia_city_id.id,
             },
-        });
+            {
+                onSuccess: () => {
+                    toast.success("Bahan Pangan Berhasil Diubah!"),
+                        setIsOpen(false);
+                },
+            }
+        );
     };
 
     const onDelete = (grocerySlug) => {
@@ -277,6 +288,7 @@ export default function Index({ total_groceries, ...props }) {
                             <Table.Th>Nama</Table.Th>
                             <Table.Th>Deskripsi</Table.Th>
                             <Table.Th>Author</Table.Th>
+                            <Table.Th>Kota/Kabupaten</Table.Th>
                             <Table.Th>Aksi</Table.Th>
                         </tr>
                     </Table.Thead>
@@ -306,6 +318,9 @@ export default function Index({ total_groceries, ...props }) {
                                             {grocery.description}
                                         </Table.Td>
                                         <Table.Td>{grocery.user.name}</Table.Td>
+                                        <Table.Td>
+                                            {grocery.indonesia_city.name}
+                                        </Table.Td>
                                         <Table.Td className="w-10">
                                             <div className="flex flex-nowrap gap-2">
                                                 <ActionButton
