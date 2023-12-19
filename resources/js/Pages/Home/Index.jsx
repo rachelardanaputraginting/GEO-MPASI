@@ -78,7 +78,7 @@ export default function Index({ articles, cities, city, ...props }) {
 
     const handleCityChange = (selectedOption) => {
         setSelectedCity(selectedOption);
-          handleSearch(selectedOption);
+        handleSearch(selectedOption);
     };
 
     const handleSearch = (selectedOption) => {
@@ -155,8 +155,8 @@ export default function Index({ articles, cities, city, ...props }) {
                 <h4 className="font-semibold mb-5 text-secondary text-3xl">
                     Bahan Pangan
                 </h4>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {groceries.length > 0 ? (
+                {groceries.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         <>
                             {groceries.map((grocery, index) => (
                                 <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
@@ -209,10 +209,14 @@ export default function Index({ articles, cities, city, ...props }) {
                                 </div>
                             ))}
                         </>
-                    ) : (
-                        <></>
-                    )}
-                </div>
+                    </div>
+                ) : (
+                    <div className="w-full flex items-centre justify-center text-center">
+                        <h4 className="text-xl text-white my-8 bg-secondary/80 p-4 px-6 rounded">
+                            Bahan Pangan tidak tersedia di daerah ini, Silahkan cari di daerah lainnya!
+                        </h4>
+                    </div>
+                )}
             </Container>
             {/* Bahan Pangan End */}
 
