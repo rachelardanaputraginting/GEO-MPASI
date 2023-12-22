@@ -162,7 +162,11 @@ export default function Index({ articles, cities, city, ...props }) {
                                 <div className="border flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
                                     <div className="">
                                         <img
-                                            src="/images/app/hero_home.webp"
+                                            src={
+                                                grocery.picture
+                                                    ? grocery.picture
+                                                    : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                            }
                                             className="rounded aspect-video"
                                             alt=""
                                         />
@@ -178,7 +182,11 @@ export default function Index({ articles, cities, city, ...props }) {
                                     <div className="pt-3 pb-1 flex justify-between align-center">
                                         <div className="flex items-center gap-3">
                                             <img
-                                                src="/images/app/hero_home.webp"
+                                                src={
+                                                    grocery.user.picture
+                                                        ? `/storage/${grocery.user.picture}`
+                                                        : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                                }
                                                 className="w-11 h-11 rounded-full"
                                                 alt=""
                                             />
@@ -213,7 +221,8 @@ export default function Index({ articles, cities, city, ...props }) {
                 ) : (
                     <div className="w-full flex items-centre justify-center text-center">
                         <h4 className="text-xl text-white my-8 bg-secondary/80 p-4 px-6 rounded">
-                            Bahan Pangan tidak tersedia di daerah ini, Silahkan cari di daerah lainnya!
+                            Bahan Pangan tidak tersedia di daerah ini, Silahkan
+                            cari di daerah lainnya!
                         </h4>
                     </div>
                 )}
@@ -263,9 +272,9 @@ export default function Index({ articles, cities, city, ...props }) {
                                         </div>
                                         <div className="py-2">
                                             <h5 className="text-2xl py-2 font-semibold text-dark">
-                                                {article.judul}
+                                                {article.title}
                                             </h5>
-                                            <p className="text-dark font-light tracking-wide line-clamp-5">
+                                            <p className="text-dark font-light tracking-wide line-clamp-4">
                                                 {article.description}
                                             </p>
                                         </div>
@@ -287,7 +296,7 @@ export default function Index({ articles, cities, city, ...props }) {
                                             </div>
 
                                             <div className="flex">
-                                                <PrimaryButton
+                                                <PrimaryNavButton
                                                     PrimaryButton
                                                     href={route(
                                                         "article.show",
@@ -295,7 +304,7 @@ export default function Index({ articles, cities, city, ...props }) {
                                                     )}
                                                 >
                                                     Rincian
-                                                </PrimaryButton>
+                                                </PrimaryNavButton>
                                             </div>
                                         </div>
                                     </div>

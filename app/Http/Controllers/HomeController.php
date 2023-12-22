@@ -128,7 +128,7 @@ class HomeController extends Controller
         $articles = Article::query()
             ->select('id', 'category_article_id', 'user_id', 'title', 'slug', 'picture', 'description', 'created_at')
             ->with([
-                "user" => fn ($query) => $query->select('name', 'username', 'id'),
+                "user" => fn ($query) => $query->select('name', 'username', 'id', 'picture'),
             ])
             ->with([
                 "category_article" => fn ($query) => $query->select('name', 'slug', 'id'),

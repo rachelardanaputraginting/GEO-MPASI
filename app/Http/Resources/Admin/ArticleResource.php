@@ -31,6 +31,7 @@ class ArticleResource extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'username' => $this->user->username,
+                'picture' => $this->user->picture ? Storage::url($this->user->picture) : null,
             ],
             "description" => Str::limit($this->description, 200, ' ...'),
             "description_full" => $this->description, 200,

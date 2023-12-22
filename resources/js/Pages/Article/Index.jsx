@@ -53,7 +53,10 @@ export default function Index({ test, ...props }) {
                     {articles.length > 0 ? (
                         <>
                             {articles.map((article, index) => (
-                                <div key={index} className="border justify-between flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth">
+                                <div
+                                    key={index}
+                                    className="border justify-between flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] rounded border-fifth"
+                                >
                                     <div className="">
                                         <img
                                             src={
@@ -76,7 +79,12 @@ export default function Index({ test, ...props }) {
                                     <div className="pt-3 pb-1 flex justify-between align-center">
                                         <div className="flex items-center gap-3">
                                             <img
-                                                src="/images/app/hero_home.webp"
+                                                src={
+                                                    article.user.picture
+                                                        ? article.user.picture
+                                                        : "https://flowbite.com/docs/images/blog/image-1.jpg"
+                                                }
+                                                classNa
                                                 className="w-11 h-11 rounded-full"
                                                 alt=""
                                             />
