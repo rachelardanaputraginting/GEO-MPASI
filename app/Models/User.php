@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid',
         'name',
         'email',
         'password',
@@ -47,11 +49,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public static function booted() {
+        static::creating(fn (User $user) => $user->uuid = Str::uuid());
+    }
+
     public function articles() {
         return $this->hasMany(Article::class);
     }
 
     public function groceries() {
-        return $this->hasMany(Groceries::class);
+        return $this->hasMany(Grocery::class);
     }
+
 }
