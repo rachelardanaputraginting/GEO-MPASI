@@ -61,4 +61,8 @@ class User extends Authenticatable
         return $this->hasMany(Grocery::class);
     }
 
+    public function chats() {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
 }
