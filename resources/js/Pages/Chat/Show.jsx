@@ -1,4 +1,4 @@
-import App from "@/Layouts/App";
+import Chat from "@/Layouts/Chat";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -9,12 +9,12 @@ const sts = (x, y, option = "justify") => {
     }
     if (option == "background") {
         return x == y
-            ? "text-green-900 flex items-end"
-            : "text-gray-700 flex items-start";
+            ? "text-primary-900 flex items-end"
+            : "text-third-700 flex items-start";
     }
 
     if (option == "bubble") {
-        return x == y ? "w-auto bg-green-100" : "w-auto  bg-gray-100";
+        return x == y ? "w-auto bg-primary-100" : "w-auto  bg-third-100";
     }
 };
 
@@ -86,7 +86,7 @@ export default function Show(props) {
                 <div className="border-b px-4 py-2">
                     <h1 className="font-semibold">{user.name}</h1>
                     {typing && (
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-dark">
                             is typing...
                         </div>
                     )}
@@ -127,7 +127,7 @@ export default function Show(props) {
                             </div>
                         ))
                     ) : (
-                        <div className="text-gray-500">
+                        <div className="text-dark">
                             Start chat with someone...
                         </div>
                     )}
@@ -155,4 +155,4 @@ export default function Show(props) {
     );
 }
 
-Show.layout = (page) => <App children={page} />;
+Show.layout = (page) => <Chat children={page} />;

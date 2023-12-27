@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GroceryController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -62,5 +63,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::delete('/article/{article:slug}', 'destroy')->name('admin.articles.destroy');
     });
 });
+
+// Chat
+Route::prefix('chat')->middleware('auth')->group(
+    function () {
+        Route::get('/', [ChatController::class, 'index'])->name('chat.index');
+        Route::get('/{user:username}', [ChatController::class, 'show'])->name('chat.show');
+        Route::post('/{user:username}', [ChatController::class, 'store'])->name('chat.store');
+    }
+);
+
 
 require __DIR__ . '/auth.php';
