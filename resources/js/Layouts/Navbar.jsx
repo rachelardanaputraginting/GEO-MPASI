@@ -94,7 +94,7 @@ export default function Navbar() {
                                     <Dropdown.Link href={route("profile.edit")}>
                                         Profil Saya
                                     </Dropdown.Link>
-                                    <Dropdown.Link href="">
+                                    <Dropdown.Link href={route('chat.index')}>
                                         <div className="flex justify-between items-center">
                                             <p>Pesan Saya</p>
                                             <span className="bg-fourth p-1 text-xs rounded text-white">
@@ -203,7 +203,7 @@ export default function Navbar() {
                                 <ResponsiveNavLink href={route("profile.edit")}>
                                     Profile
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="">
+                                <ResponsiveNavLink href={route('chat.index')}>
                                     <div className="flex w-full justify-between">
                                         <p>Pesan Saya</p>
                                         <span className="bg-fourth p-1 text-xs rounded text-white">

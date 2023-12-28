@@ -85,8 +85,23 @@ export default function Show(props) {
             <Head title={`GEO-MPASI | Chat with ${user.username}`} />
 
             <div className="flex flex-col justify-between h-screen">
-                <div className="border-b px-4 py-2">
-                    <h1 className="font-semibold">{user.name}</h1>
+                <div className="shadow px-4 py-4 bg-secondary">
+                    <div className="flex gap-2">
+                        <img
+                            src={
+                                `${user.picture}`
+                                    ? `/storage/${user.picture}`
+                                    : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
+                            }
+                            alt={user.picture}
+                            className="h-10 w-10 rounded"
+                        />
+
+                        <div className="flex flex-col">
+                            <div className="font-semibold">{user.name}</div>
+                            <div className="text-xs">Rs. Sejahtera</div>
+                        </div>
+                    </div>
                     {typing && (
                         <div className="text-xs text-dark">is typing...</div>
                     )}
@@ -147,7 +162,7 @@ export default function Show(props) {
                             autoComplete={"off"}
                             id="message"
                             placeholder="Start typing..."
-                            className="w-full px-4 py-2 border-none p-0 border-0 focus:ring-0 focus:ring-none"
+                            className="w-full px-4 py-3 border-none p-0 border-0 focus:ring-0 focus:ring-none"
                         />
                     </form>
                 </div>

@@ -44,7 +44,7 @@ class ChatController extends Controller
         )->orWhere(
             fn ($q) => $q->where('sender_id', $user->id)->where('receiver_id', Auth::id())
         )->get();
-
+        
         return inertia('Chat/Show', [
             "user" => $user,
             "chats" => $chats
