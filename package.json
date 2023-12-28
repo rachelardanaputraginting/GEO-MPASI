@@ -24,6 +24,7 @@
     "dependencies": {
         "@tabler/icons-react": "^2.42.0",
         "clsx": "^2.0.0",
+        "emoji-picker-react": "^4.6.0",
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "moment-timezone": "^0.5.43",

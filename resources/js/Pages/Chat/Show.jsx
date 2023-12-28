@@ -2,6 +2,7 @@ import InputFileChat from "@/Components/InputFIleChat";
 import Chat from "@/Layouts/Chat";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
 import { IconMoodSmile } from "@tabler/icons-react";
+import EmojiPicker from "emoji-picker-react";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -82,11 +83,20 @@ export default function Show(props) {
         messageRef.current.focus();
     }, [chats]);
 
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+    const addEmoji = (e) => {
+        setData({
+            ...data,
+            message: data.message + e.emoji,
+        });
+    };
+
     return (
         <div>
             <Head title={`GEO-MPASI | Chat with ${user.username}`} />
 
-            <div className="flex flex-col justify-between h-screen">
+            <div className="flex flex-col justify-between h-screen relative">
                 <div className="shadow-xl border-b border-fifth px-4 py-4 bg-secondary">
                     <div className="flex gap-2">
                         <img
@@ -151,11 +161,32 @@ export default function Show(props) {
                     )}
                 </div>
                 <div className="border-t bg-secondary border-fifth p-4">
-                    <form onSubmit={submitHandler} className="w-full flex items-center">
+                    <form
+                        onSubmit={submitHandler}
+                        className="w-full flex items-center"
+                    >
                         <div className="w-1/12">
                             <div className="flex items-center justify-evenly w-full">
-                            <InputFileChat  />
-                            <IconMoodSmile className=" text-white" />
+                                <InputFileChat />
+
+                                {showEmojiPicker && (
+                                    <EmojiPicker
+                                        style={{
+                                            position: "absolute",
+                                            left: 20,
+                                            bottom: "100px",
+                                            // marginBottom:"50px"
+                                        }}
+                                        onEmojiClick={addEmoji}
+                                    />
+                                )}
+                                <button
+                                    onClick={() =>
+                                        setShowEmojiPicker(!showEmojiPicker)
+                                    }
+                                >
+                                    <IconMoodSmile className=" text-white" />
+                                </button>
                             </div>
                         </div>
                         <div className="w-11/12">
