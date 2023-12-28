@@ -7,7 +7,7 @@ import Home from "@/Layouts/Home";
 import { Head, Link, router } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index({ test, ...props }) {
+export default function Index({  ...props }) {
     const { data: articles, meta, links } = props.articles;
     const [searchQuery, setSearchQuery] = useState("");
     const handleSearch = (e) => {
