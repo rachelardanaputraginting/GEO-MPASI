@@ -193,8 +193,9 @@ export default function Show(props) {
                                 name="message"
                                 autoComplete={"off"}
                                 id="message"
+                                autoFocus={true}
                                 placeholder="Ketik pesan..."
-                                className="w-full px-4 py-3 rounded border-none p-0 border-0 focus:ring-0 focus:ring-none"
+                                className="w-full text-sm px-4 py-3 rounded border-none p-0 border-0 focus:ring-0 focus:ring-none bg-third text-dark focus:text-dark focus:bg-white rounded-md"
                             />
                         </div>
                     </form>

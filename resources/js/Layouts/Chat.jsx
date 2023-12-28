@@ -1,11 +1,12 @@
 import Dropdown from "@/Components/Dropdown";
 import { Head, Link, usePage } from "@inertiajs/react";
+import { IconMessage } from "@tabler/icons-react";
 import React from "react";
 
 export default function Chat({ title, children }) {
     const { users, auth } = usePage().props;
     return (
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen bg-primary/10">
             <Head title={title} />
             <div className="w-1/4">
                 <div className="w-1/4 fixed flex flex-col h-full text-left border-r border-fifth space-y-2">
@@ -74,36 +75,50 @@ export default function Chat({ title, children }) {
                     </div>
                     <div className="flex-1 overflow-y-auto p-4 space-y-3">
                         {users.map((user) => (
-                            <Link
-                                key={user.id}
-                                href={route("chat.show", user.username)}
-                                className={`block hover:bg-third border-b rounded-b-none border-fifth py-3 rounded ${
-                                    route().current("chat.show", user.username)
-                                        ? "text-dark"
-                                        : "text-dark"
-                                }`}
-                            >
-                                <div className="flex gap-2">
-                                    <img
-                                        src={
-                                            `${user.picture}`
-                                                ? `/storage/${user.picture}`
-                                                : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
-                                        }
-                                        alt={user.picture}
-                                        className="h-10 w-10 rounded"
-                                    />
+                            <>
+                                <Link
+                                    key={user.id}
+                                    href={route("chat.show", user.username)}
+                                    className={`block hover:bg-third border-b rounded-b-none border-fifth py-3 rounded ${
+                                        route().current(
+                                            "chat.show",
+                                            user.username
+                                        )
+                                            ? "text-dark"
+                                            : "text-dark"
+                                    }`}
+                                >
+                                    <div className="flex gap-2">
+                                        <img
+                                            src={
+                                                `${user.picture}`
+                                                    ? `/storage/${user.picture}`
+                                                    : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
+                                            }
+                                            alt={user.picture}
+                                            className="h-10 w-10 rounded"
+                                        />
 
-                                    <div className="flex flex-col">
-                                        <div className="font-semibold">
-                                            {user.name}
-                                        </div>
-                                        <div className="text-xs">
-                                            Rs. Sejahtera
+                                        <div className="flex flex-col">
+                                            <div className="font-semibold">
+                                                {user.name}
+                                            </div>
+                                            <div className="text-xs">
+                                                Rs. Sejahtera
+                                            </div>
                                         </div>
                                     </div>
+                                </Link>
+                                <div className="px-6 py-4 flex flex-col items-center justify-center flex-1 space-y-2">
+                                    <p className="text-sm text-fifth">
+                                        Silahkan berdiskusi..
+                                    </p>
+                                    <IconMessage
+                                        className="text-fifth"
+                                        stroke={1}
+                                    />
                                 </div>
-                            </Link>
+                            </>
                         ))}
                     </div>
                 </div>
