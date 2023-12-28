@@ -9,12 +9,14 @@ const sts = (x, y, option = "justify") => {
     }
     if (option == "background") {
         return x == y
-            ? "text-primary-900 flex items-end"
-            : "text-third-700 flex items-start";
+            ? "text-primary flex items-end text-white"
+            : "text-secondary flex items-start text-white";
     }
 
     if (option == "bubble") {
-        return x == y ? "w-auto bg-primary-100" : "w-auto  bg-third-100";
+        return x == y
+            ? "w-auto bg-primary rounded-xl rounded-br-none"
+            : "w-auto bg-secondary rounded-xl rounded-bl-none";
     }
 };
 
@@ -76,19 +78,17 @@ export default function Show(props) {
             scrollRef.current.scrollTo(0, scrollRef.current.scrollHeight);
         }
         messageRef.current.focus();
-    }, [chats]); //
+    }, [chats]);
 
     return (
         <div>
-            <Head title={`Chat with ${user.username}`} />
+            <Head title={`GEO-MPASI | Chat with ${user.username}`} />
 
             <div className="flex flex-col justify-between h-screen">
                 <div className="border-b px-4 py-2">
                     <h1 className="font-semibold">{user.name}</h1>
                     {typing && (
-                        <div className="text-xs text-dark">
-                            is typing...
-                        </div>
+                        <div className="text-xs text-dark">is typing...</div>
                     )}
                 </div>
                 <div
@@ -103,14 +103,15 @@ export default function Show(props) {
                                 key={chat.id}
                             >
                                 <div
-                                    className={`p-4 rounded-xl w-3/4 flex flex-col  ${sts(
+                                    className={`p-3 rounded rounded-br-none w-3/4 flex flex-col  ${sts(
                                         auth.user.id,
                                         chat.sender_id,
                                         "background"
                                     )}`}
+                                    created
                                 >
                                     <div
-                                        className={`p-4 rounded-xl flex flex-col items-end ${sts(
+                                        className={`p-3  flex flex-col items-end ${sts(
                                             auth.user.id,
                                             chat.sender_id,
                                             "bubble"
@@ -118,10 +119,10 @@ export default function Show(props) {
                                     >
                                         {chat.message}
                                     </div>
-                                    <span className="text-[10px]">
-                                        {moment(chat.created_at)
-                                            .locale("id")
-                                            .format("HH:mm")}
+                                    <span className="text-[10px] text-dark">
+                                        {moment(chat.created_at).format(
+                                            "HH:mm"
+                                        )}
                                     </span>
                                 </div>
                             </div>
