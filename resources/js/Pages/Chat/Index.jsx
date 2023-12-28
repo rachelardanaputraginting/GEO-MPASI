@@ -6,7 +6,7 @@ export default function Index() {
     return (
         <div className="px-6 py-4 flex flex-col items-center justify-center flex-1 h-screen space-y-2">
             <p className="text-lg text-fifth font-semibold">
-                Ayoo mulai obrolan
+                Ayoo mulai obrolan..
             </p>
             <p className="text-xl text-fifth">
                 Silahkan berdiskusi dengan Dokter kesayangan Anda
