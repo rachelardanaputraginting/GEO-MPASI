@@ -26,6 +26,7 @@ const sts = (x, y, option = "justify") => {
 export default function Show(props) {
     const { auth } = usePage().props;
 
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [typing, setTyping] = useState(false);
 
     const scrollRef = useRef(null);
@@ -39,6 +40,7 @@ export default function Show(props) {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
         router.post(
             `/chat/${user.username}`,
             {
@@ -47,6 +49,7 @@ export default function Show(props) {
             },
             {
                 onSuccess: () => {
+                    setShowEmojiPicker(false);
                     reset("message");
                     scrollRef.current.scrollTo(0, 999999999);
                 },
@@ -83,15 +86,6 @@ export default function Show(props) {
         messageRef.current.focus();
     }, [chats]);
 
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
-    const addEmoji = (e) => {
-        setData({
-            ...data,
-            message: data.message + e.emoji,
-        });
-    };
-
     return (
         <div>
             <Head title={`GEO-MPASI | Chat with ${user.username}`} />
@@ -119,7 +113,7 @@ export default function Show(props) {
                     )}
                 </div>
                 <div
-                    className="overflow-y-auto flex flex-col h-full px-4 py-2 space-y-2"
+                    className="overflow-y-auto scrolling-wrapper flex flex-col h-full px-4 py-2 space-y-2"
                     ref={scrollRef}
                 >
                     {chats.length ? (
@@ -135,7 +129,7 @@ export default function Show(props) {
                                         chat.sender_id,
                                         "background"
                                     )}`}
-                                    created
+                                    created={"true"}
                                 >
                                     <div
                                         className={`p-4 flex flex-col items-end ${sts(
@@ -160,36 +154,31 @@ export default function Show(props) {
                         </div>
                     )}
                 </div>
-                <div className="border-t bg-secondary border-fifth p-4">
-                    <form
-                        onSubmit={submitHandler}
-                        className="w-full flex items-center"
-                    >
-                        <div className="w-1/12">
-                            <div className="flex items-center justify-evenly w-full">
-                                <InputFileChat />
-
-                                {showEmojiPicker && (
-                                    <EmojiPicker
-                                        style={{
-                                            position: "absolute",
-                                            left: 20,
-                                            bottom: "100px",
-                                            // marginBottom:"50px"
-                                        }}
-                                        onEmojiClick={addEmoji}
-                                    />
-                                )}
-                                <button
-                                    onClick={() =>
-                                        setShowEmojiPicker(!showEmojiPicker)
-                                    }
-                                >
-                                    <IconMoodSmile className=" text-white" />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="w-11/12">
+                <div className="border-t bg-secondary border-fifth p-4 flex w-full gap-3">
+                    <div className="w-auto flex items-center">
+                        {/* Emoticon */}
+                        {showEmojiPicker && (
+                            <EmojiPicker
+                                style={{
+                                    position: "absolute",
+                                    left: 20,
+                                    bottom: "100px",
+                                }}
+                                onEmojiClick={(e) =>
+                                    setData({
+                                        ...data,
+                                        message: data.message + e.emoji,
+                                    })
+                                }
+                            />
+                        )}
+                        <button onClick={() => setShowEmojiPicker(true)}>
+                            <IconMoodSmile className="text-white" />
+                        </button>
+                    </div>
+                    <form onSubmit={submitHandler} className="w-full">
+                        <div className="flex gap-3 items-center">
+                            <InputFileChat />
                             <input
                                 value={data.message}
                                 onChange={(e) =>
