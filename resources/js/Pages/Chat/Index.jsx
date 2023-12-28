@@ -5,4 +5,4 @@ export default function Index() {
     return <div className="px-6 py-4">Start chat</div>;
 }
 
-Chat.layout = (page) => <Chat children={page} title="Chattan App" />;
+Index.layout = (page) => <Chat children={page} title="Chattan App" />;
