@@ -7,8 +7,8 @@ export default function Chat({ title, children }) {
         <div className="flex min-h-screen">
             <Head title={title} />
             <div className="w-1/4">
-                <div className="w-1/4 fixed flex flex-col h-full text-left border-r space-y-2">
-                    <div className="shadow px-4 py-4 bg-secondary">
+                <div className="w-1/4 fixed flex flex-col h-full text-left border-r border-fifth space-y-2">
+                    <div className="shadow px-4 py-4 bg-primary">
                         <div className="flex gap-2">
                             <img
                                 src={

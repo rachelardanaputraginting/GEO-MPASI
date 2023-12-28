@@ -1,5 +1,7 @@
+import InputFileChat from "@/Components/InputFIleChat";
 import Chat from "@/Layouts/Chat";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { IconMoodSmile } from "@tabler/icons-react";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -15,8 +17,8 @@ const sts = (x, y, option = "justify") => {
 
     if (option == "bubble") {
         return x == y
-            ? "w-auto bg-primary rounded-xl rounded-br-none"
-            : "w-auto bg-secondary rounded-xl rounded-bl-none";
+            ? "w-auto bg-primary/75 rounded-xl rounded-br-none"
+            : "w-auto bg-secondary/75 rounded-xl rounded-bl-none";
     }
 };
 
@@ -85,7 +87,7 @@ export default function Show(props) {
             <Head title={`GEO-MPASI | Chat with ${user.username}`} />
 
             <div className="flex flex-col justify-between h-screen">
-                <div className="shadow px-4 py-4 bg-secondary">
+                <div className="shadow-xl border-b border-fifth px-4 py-4 bg-secondary">
                     <div className="flex gap-2">
                         <img
                             src={
@@ -126,7 +128,7 @@ export default function Show(props) {
                                     created
                                 >
                                     <div
-                                        className={`p-3  flex flex-col items-end ${sts(
+                                        className={`p-4 flex flex-col items-end ${sts(
                                             auth.user.id,
                                             chat.sender_id,
                                             "bubble"
@@ -143,27 +145,38 @@ export default function Show(props) {
                             </div>
                         ))
                     ) : (
-                        <div className="text-dark">
-                            Start chat with someone...
+                        <div className="text-fifth flex justify-center items-center flex-1">
+                            Silahkan Berkonsultasi dengan {user.name}
                         </div>
                     )}
                 </div>
-                <div className="border-t">
-                    <form onSubmit={submitHandler}>
-                        <input
-                            value={data.message}
-                            onChange={(e) =>
-                                setData({ ...data, message: e.target.value })
-                            }
-                            onKeyUp={onTyping}
-                            type="text"
-                            ref={messageRef}
-                            name="message"
-                            autoComplete={"off"}
-                            id="message"
-                            placeholder="Start typing..."
-                            className="w-full px-4 py-3 border-none p-0 border-0 focus:ring-0 focus:ring-none"
-                        />
+                <div className="border-t bg-secondary border-fifth p-4">
+                    <form onSubmit={submitHandler} className="w-full flex items-center">
+                        <div className="w-1/12">
+                            <div className="flex items-center justify-evenly w-full">
+                            <InputFileChat  />
+                            <IconMoodSmile className=" text-white" />
+                            </div>
+                        </div>
+                        <div className="w-11/12">
+                            <input
+                                value={data.message}
+                                onChange={(e) =>
+                                    setData({
+                                        ...data,
+                                        message: e.target.value,
+                                    })
+                                }
+                                onKeyUp={onTyping}
+                                type="text"
+                                ref={messageRef}
+                                name="message"
+                                autoComplete={"off"}
+                                id="message"
+                                placeholder="Ketik pesan..."
+                                className="w-full px-4 py-3 rounded border-none p-0 border-0 focus:ring-0 focus:ring-none"
+                            />
+                        </div>
                     </form>
                 </div>
             </div>
