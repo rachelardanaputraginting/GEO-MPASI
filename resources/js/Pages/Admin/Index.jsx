@@ -1,12 +1,9 @@
 import Container from "@/Components/Container";
-import Hero from "@/Components/Fragment/Hero";
-import PrimaryButton from "@/Components/PrimaryButton";
 import App from "@/Layouts/App";
 import { Head, Link, usePage } from "@inertiajs/react";
-import { IconMessage, IconPaperclip, IconToolsKitchen2 } from "@tabler/icons-react";
+import { IconEdit, IconMessage, IconPaperclip, IconToolsKitchen2 } from "@tabler/icons-react";
 
-export default function Index() {
-
+export default function Index({total_articles, total_groceries, total_messages}) {
     const { auth } = usePage().props;
 
     return (
@@ -42,78 +39,69 @@ export default function Index() {
                 <h4 className="w-full font-semibold mb-5 text-secondary text-3xl">
                     Dashboard
                 </h4>
-                <div className="flex w-full flex-wrap md:flex-nowrap">
-                    <div className="p-4 pl-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] ">
-                        <div className="border rounded border-fifth">
-                            <div className="flex justify-center h-64">
-                                <IconToolsKitchen2
-                                    stroke={1}
-                                    className="aspect-ratio text-dark/90"
-                                    size={240}
-                                ></IconToolsKitchen2>
+                <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="flex gap-4 items-center p-2 border rounded border-fifth bg-white">
+                        <IconToolsKitchen2
+                            stroke={2}
+                            color="white"
+                            className="bg-primary rounded p-4"
+                            size={72}
+                        ></IconToolsKitchen2>
+                        <div className="flex flex-col w-full justify-end">
+                            <div className="text-md text-dark">
+                                <span className="font-bold">{total_groceries}</span> Bahan Pangan
                             </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-center text-dark">
-                                    Bahan Pangan
-                                </h5>
-                            </div>
-                            <div className="p-3 flex justify-end align-center">
+                            <div className="flex justify-end align-center">
                                 <Link
-                                    className="inline-flex items-center justify-center text-center px-4 py-2.5 bg-secondary rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-secondary focus:bg-secondary active:bg-orange-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                    className="inline-flex items-center justify-center text-center p-2 bg-secondary rounded font-semibold text-white"
                                     href={route("admin.groceries.index")}
                                     type="button"
                                 >
-                                    Kelola
+                                    <IconEdit size="20" />
                                 </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] ">
-                        <div className="border rounded border-fifth">
-                            <div className="flex justify-center h-64">
-                                <IconPaperclip
-                                    stroke={1}
-                                    className="aspect-ratio text-dark/90"
-                                    size={240}
-                                ></IconPaperclip>
+                    <div className="flex gap-4 items-center p-2 border rounded border-fifth bg-white">
+                        <IconPaperclip
+                            stroke={2}
+                            color="white"
+                            className="bg-primary rounded p-4"
+                            size={72}
+                        ></IconPaperclip>
+                        <div className="flex flex-col w-full justify-end">
+                            <div className="text-md text-dark">
+                                <span className="font-bold">{total_articles}</span> Artikel Saya
                             </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-center text-dark">
-                                    Artikel
-                                </h5>
-                            </div>
-                            <div className="p-3 flex justify-end align-center">
+                            <div className="flex justify-end align-center">
                                 <Link
-                                    className="inline-flex items-center justify-center text-center px-4 py-2.5 bg-secondary rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-secondary focus:bg-secondary active:bg-orange-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                    className="inline-flex items-center justify-center text-center p-2 bg-secondary rounded font-semibold text-white"
                                     href={route("admin.articles.index")}
                                     type="button"
                                 >
-                                    Kelola
+                                    <IconEdit size="20" />
                                 </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col hover:scale-[101%] transition-all duration-3s p-[12px] ">
-                        <div className="border rounded border-fifth">
-                            <div className="flex justify-center h-64">
-                                <IconMessage
-                                    stroke={1}
-                                    className="aspect-ratio text-dark/90"
-                                    size={240}
-                                ></IconMessage>
+                    <div className="flex gap-4 items-center p-2 border rounded border-fifth bg-white">
+                        <IconMessage
+                            stroke={2}
+                            color="white"
+                            className="bg-primary rounded p-4"
+                            size={72}
+                        ></IconMessage>
+                        <div className="flex flex-col w-full justify-end">
+                            <div className="text-md text-dark">
+                                <span className="font-bold">{total_messages}</span> Pesan Saya
                             </div>
-                            <div className="py-2">
-                                <h5 className="text-2xl py-2 font-semibold text-center text-dark">
-                                    Pesan Saya
-                                </h5>
-                            </div>
-                            <div className="p-3 flex justify-end align-center">
+                            <div className="flex justify-end align-center">
                                 <Link
-                                    className="inline-flex items-center justify-center text-center px-4 py-2.5 bg-secondary rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-secondary focus:bg-secondary active:bg-orange-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                                    href=""
+                                    className="inline-flex items-center justify-center text-center p-2 bg-secondary rounded font-semibold text-white"
+                                    href={route("chat.index")}
                                     type="button"
                                 >
-                                    Kelola
+                                    <IconEdit size="20" />
                                 </Link>
                             </div>
                         </div>
