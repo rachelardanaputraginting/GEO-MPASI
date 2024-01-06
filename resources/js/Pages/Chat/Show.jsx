@@ -1,7 +1,8 @@
 import InputFileChat from "@/Components/InputFIleChat";
+import TextInput from "@/Components/TextInput";
 import Chat from "@/Layouts/Chat";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
-import { IconMoodSmile } from "@tabler/icons-react";
+import { IconMoodSmile, IconSearch } from "@tabler/icons-react";
 import EmojiPicker from "emoji-picker-react";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -92,25 +93,32 @@ export default function Show(props) {
 
             <div className="flex flex-col justify-between h-screen relative">
                 <div className="shadow-xl border-b border-fifth px-4 py-4 bg-secondary">
-                    <div className="flex gap-2">
-                        <img
-                            src={
-                                `${user.picture}`
-                                    ? `/storage/${user.picture}`
-                                    : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
-                            }
-                            alt={user.picture}
-                            className="h-10 w-10 rounded"
-                        />
+                    <div className="flex justify-between items-center">
+                        <div className="flex gap-2">
+                            <img
+                                src={
+                                    `${user.picture}`
+                                        ? `/storage/${user.picture}`
+                                        : "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Free-File-Download.png"
+                                }
+                                alt={user.picture}
+                                className="h-10 w-10 rounded"
+                            />
 
-                        <div className="flex flex-col">
-                            <div className="font-semibold">{user.name}</div>
-                            <div className="text-xs">Rs. Sejahtera</div>
+                            <div className="flex flex-col text-white">
+                                <div className="font-semibold">{user.name}</div>
+                                <div className="text-xs">Rs. Sejahtera</div>
+                            </div>
+                            {typing && (
+                                <div className="text-xs text-dark">
+                                    is typing...
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex">
+                            <IconSearch color="white" />
                         </div>
                     </div>
-                    {typing && (
-                        <div className="text-xs text-dark">is typing...</div>
-                    )}
                 </div>
                 <div
                     className="overflow-y-auto scrolling-wrapper flex flex-col h-full px-4 py-2 space-y-2"

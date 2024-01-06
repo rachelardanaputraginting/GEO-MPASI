@@ -225,7 +225,7 @@ export default function Index({
                                         <Table.Td>
                                             {article.category_article.name}
                                         </Table.Td>
-                                        <Table.Td className="w-[600px]">
+                                        <Table.Td>
                                             {article.description}
                                         </Table.Td>
                                         <Table.Td className="w-10">

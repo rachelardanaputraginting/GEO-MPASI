@@ -69,15 +69,6 @@ class ArticleController extends Controller
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Article $article)
-    {
-        //
-    }
-
-
     public function update(Request $request, Article $article)
     {
 
@@ -95,9 +86,6 @@ class ArticleController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Article $article)
     {
         if ($article->picture) {
